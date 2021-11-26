@@ -33,7 +33,7 @@
                     <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $hospitalized['notVaccinated']['percent'] + $hospitalized['firstVaccination']['percent'])} %)</span>
                 </div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každých {(100-(100 - ($hospitalized['notVaccinated']['percent'] + $hospitalized['firstVaccination']['percent'])))|number: 1} ze 100</span>
+                    <span class="fw-bold">každý {(100-(100 - ($hospitalized['notVaccinated']['percent'] + $hospitalized['firstVaccination']['percent'])))|number: 1} ze 100</span>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $hospitalized['secondVaccination']['percent'])} %)</span>
                 </div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každých {(100 - (100 - ($hospitalized['secondVaccination']['percent'])))|number: 1} ze 100</span>
+                    <span class="fw-bold">každý {(100 - (100 - ($hospitalized['secondVaccination']['percent'])))|number: 1} ze 100</span>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                     <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $hospitalized['thirdVaccination']['percent'])} %)</span>
                 </div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každých {(100 - (100 - ($hospitalized['thirdVaccination']['percent'])))|number: 1} lidí ze 100</span>
+                    <span class="fw-bold">každý {(100 - (100 - ($hospitalized['thirdVaccination']['percent'])))|number: 1} ze 100</span>
                 </div>
             </div>
         </div>
