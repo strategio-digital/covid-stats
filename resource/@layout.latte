@@ -18,9 +18,8 @@
     <section class="container my-5">
         <div class="mb-5">
             <h1 class="display-2 fw-bold">Covid bez očkování</h1>
-            <p class="h2 fw-normal">Jakou máte šanci na přežití, když se dostanete do nemocnice?</p>
-            <p class="lead text-danger">Posuďte sami podle aktuálních dat z českých nemocnic a hygienických stanic.</p>
-            <p class="lead">Aktuální data za období od <strong>{$startDate->format('j.n.Y')}</strong> až <strong>{$endDate->format('d.n.Y')}</strong></p>
+            <p class="lead text-danger">Posuď si situaci sám, podle aktuálních dat z českých nemocnic a hygienických stanic.</p>
+            <p class="lead">Data jsou zobrazena pro období od <strong>{$startDate->format('j.n.Y')}</strong> až do <strong>{$endDate->format('d.n.Y')}</strong> (aktuální k dnešnímu dni).</p>
         </div>
 
         {include content}
@@ -29,8 +28,10 @@
             Data čerpáme z <a href="https://onemocneni-aktualne.mzcr.cz/api/v3/docs" target="_blank">Open API Ministerstva Zdravotnictví ČR.</a> a
             <a href="https://www.czso.cz/csu/czso/vekove-slozeni-obyvatelstva-2020" target="_blank">Českého statistického úřadu</a>.
         </div>
+
         <div class="text-end opacity-50 small mt-2">
-            <a href="//strategio.digital">Strategio Digital s.r.o.</a>
+            <a href="https://strategio.digital" target="_blank">Strategio Digital s.r.o.</a> |
+            <a href="https://github.com/strategio-digital/covid-stats" target="_blank">zdrojový kód webu</a>
         </div>
     </section>
 </body>
