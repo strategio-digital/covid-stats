@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Dataset\DeathsDataset;
-use App\Model\Dataset\PositivesDataset;
+use App\Model\Dataset\HospitalizedDataset;
 use App\Model\Dataset\SummaryDataset;
 use App\Model\MzcrApi;
 use Latte\Engine;
@@ -16,7 +16,7 @@ class Homepage
     
     protected DeathsDataset $deathsDataset;
     
-    protected PositivesDataset $positivesDataset;
+    protected HospitalizedDataset $hospitalizedDataset;
     
     protected SummaryDataset $summaryDataset;
     
@@ -25,17 +25,18 @@ class Homepage
         $this->mzcrApi = new MzcrApi();
     
         $this->deathsDataset = new DeathsDataset($this->mzcrApi);
-        $this->positivesDataset = new PositivesDataset($this->mzcrApi);
+        $this->hospitalizedDataset = new HospitalizedDataset($this->mzcrApi);
         $this->summaryDataset = new SummaryDataset($this->mzcrApi);
     
         $this->latte = new Engine();
-        $this->latte->setTempDirectory(__DIR__ . '/../../temp');
+        $this->latte->setTempDirectory(__DIR__ . '/../../temp/latte');
     }
     
     public function index(): void
     {
         // Datasets
         $deaths = $this->deathsDataset->fetch();
+        $hospitalized = $this->hospitalizedDataset->fetch();
         $summary = $this->summaryDataset->fetch();
     
         // Dates
@@ -47,7 +48,9 @@ class Homepage
         $this->latte->render(__DIR__ . '/../../resource/Homepage/index.latte', [
             'startDate' => $startDate->modify('-2 months'),
             'endDate' => $endDate,
+            
             'deaths' => $deaths->getStats(),
+            'hospitalized' => $hospitalized->getStats(),
             'summary' => $summary->getData(),
         ]);
     }

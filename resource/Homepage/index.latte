@@ -1,18 +1,70 @@
 {extends ../@layout.latte}
 
 {block content}
-    <div class="mb-5">
-        <h2 class="mb-3">Jakou mám šanci na přežití, když se dostanu do nemocnice?</h2>
-        {include table/deaths.latte}
-    </div>
+    <section class="bg-white py-5">
+        <div class="container">
+            <h2 class="mb-4">Jakou mám šanci, že neumřu, když se dostanu do nemocnice?</h2>
+            {include table/deaths.latte}
+        </div>
+    </section>
 
-    <div>
-        <h2 class="mb-3">Jakou mám šanci, že se dostanu do nemocnice?</h2>
-    </div>
+    <section class="bg-white py-5">
+        <div class="container">
+            <h2 class="mb-4">Jakou mám šanci, že budu hospitalizován v nemocnici?</h2>
+            {include table/hospitalized.latte}
+        </div>
+    </section>
 
-    <div class="opacity-25">
-        <h2>Celková sumarizace (v přípravě)</h2>
-        <p>Tabulku prozatím nelze připravit - někerá data nedokážeme rozdělit do potřebných skupin, nedokážeme je filtrovat podle období a neradi bychom publikovali nepřesné výsledky.</p>
-        {include table/summary.latte}
-    </div>
+    <section class="bg-white py-5">
+        <div class="container pb-5">
+            <h2>Jakou mám šanci, že chytnu COVID v těžké formě?</h2>
+            <figure class="mb-5">
+                <blockquote class="blockquote">
+                    <p>
+                        S novou Jihoafrickou mutací, která se do Evropy šíří strextrémní rychlostí &ndash;
+                        <strong class="fw-bold">O 500 % rychleji než delta, je 100% jistota, že COVID chytneš</strong>.
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Aktualizace: 26.11.2021
+                </figcaption>
+            </figure>
+
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <a href="/img/sireni-viru.jpg" target="_blank">
+                        <img src="/img/sireni-viru.jpg" alt="Rychlost šíření viru" class="img-fluid">
+                    </a>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <a href="/img/sireni-viru-v2.jpg" target="_blank">
+                        <img src="/img/sireni-viru-v2.jpg" alt="Rychlost šíření viru" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-danger py-5">
+        <div class="container text-white" style="padding-top: 10rem; padding-bottom: 10rem">
+            <h2 class="h1">Nechceš v následujících týdnech umřít?</h2>
+            <p class="h4 fw-normal mb-5">Očkuj se. Tvá rodina, nejbližší a přátelé o tebe opravdu nechtějí přijít.</p>
+            <a href="https://registrace.mzcr.cz/" target="_blank" class="btn btn-lg btn-light mb-3 me-2">
+                Registrovat se na očkování
+            </a>
+            <a href="https://ockovani.opendatalab.cz/mista" target="_blank" class="btn btn-lg btn-outline-light mb-3">
+                Přehled volných očkovacích míst
+            </a>
+        </div>
+    </section>
+
+    <section class="bg-white py-5">
+        <div class="container py-5">
+            <div class="opacity-25">
+                <h2>Detailní sumarizace úmrtnosti (v přípravě)</h2>
+                <p>Tabulku prozatím nelze připravit - někerá data nedokážeme rozdělit do potřebných skupin, nedokážeme je filtrovat podle období a neradi bychom publikovali nepřesné výsledky.</p>
+                {include table/summary.latte}
+            </div>
+        </div>
+    </section>
 {/block}

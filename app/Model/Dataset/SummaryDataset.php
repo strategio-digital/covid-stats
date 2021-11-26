@@ -10,7 +10,7 @@ namespace App\Model\Dataset;
 use App\Entity\Group;
 use App\Model\MzcrApi;
 
-class SummaryDataset
+class SummaryDataset extends AbstractDataset
 {
     protected array $data = [];
     

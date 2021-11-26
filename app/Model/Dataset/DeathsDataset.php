@@ -9,7 +9,7 @@ namespace App\Model\Dataset;
 
 use App\Model\MzcrApi;
 
-class DeathsDataset
+class DeathsDataset extends AbstractDataset
 {
     protected array $data = [];
     
@@ -20,12 +20,7 @@ class DeathsDataset
     public function fetch(): DeathsDataset
     {
         $response = $this->mzcrApi->ockovaniUmrti(1);
-        $pages = (int)ceil($response['hydra:totalItems'] / 100);
-        $this->data = $response['hydra:member'];
-    
-        for ($i = 2; $i <= $pages; $i++) {
-            $this->data = array_merge($this->data, $this->mzcrApi->ockovaniUmrti($i)['hydra:member']);
-        }
+        $this->data = $this->fetchAll($response, 'ockovaniUmrti');
         
         return $this;
     }

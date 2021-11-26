@@ -9,7 +9,7 @@ namespace App\Model\Dataset;
 
 use App\Model\MzcrApi;
 
-class PositivesDataset
+class HospitalizedDataset extends AbstractDataset
 {
     protected array $data = [];
     
@@ -17,16 +17,10 @@ class PositivesDataset
     {
     }
     
-    public function fetch(): PositivesDataset
+    public function fetch(): HospitalizedDataset
     {
-        /*$response = $this->mzcrApi->ockovaniUmrti(1);
-        $pages = (int)ceil($response['hydra:totalItems'] / 100);
-        $this->data = $response['hydra:member'];
-    
-        for ($i = 2; $i <= $pages; $i++) {
-            $this->data = array_merge($this->data, $this->mzcrApi->ockovaniUmrti($i)['hydra:member']);
-        }*/
-        
+        $response = $this->mzcrApi->ockovaniHospitalizace(1);
+        $this->data = $this->fetchAll($response, 'ockovaniHospitalizace');
         return $this;
     }
     
@@ -42,24 +36,24 @@ class PositivesDataset
     
     public function getStats(): array
     {
-        $sumDeaths = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_celkem'];
+        $sumDeaths = array_reduce($this->data, function (int $prev, array $hospitalized) {
+            return $prev + $hospitalized['hospitalizovani_celkem'];
         }, 0);
         
-        $sumNotVaccinated = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_bez_ockovani'];
+        $sumNotVaccinated = array_reduce($this->data, function (int $prev, array $hospitalized) {
+            return $prev + $hospitalized['hospitalizovani_bez_ockovani'];
         }, 0);
         
-        $sumFirstVaccination = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_nedokoncene_ockovani'];
+        $sumFirstVaccination = array_reduce($this->data, function (int $prev, array $hospitalized) {
+            return $prev + $hospitalized['hospitalizovani_nedokoncene_ockovani'];
         }, 0);
         
-        $sumSecondVaccination = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_dokoncene_ockovani'];
+        $sumSecondVaccination = array_reduce($this->data, function (int $prev, array $hospitalized) {
+            return $prev + $hospitalized['hospitalizovani_dokoncene_ockovani'];
         }, 0);
         
-        $sumThirdVaccination = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_posilujici_davka'];
+        $sumThirdVaccination = array_reduce($this->data, function (int $prev, array $hospitalized) {
+            return $prev + $hospitalized['hospitalizovani_posilujici_davka'];
         }, 0);
         
         return [

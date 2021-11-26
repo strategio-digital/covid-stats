@@ -19,6 +19,8 @@
         "symfony/dotenv": "^5.3",
         "latte/latte": "^2.10",
         "guzzlehttp/guzzle": "^7.4",
-        "doctrine/collections": "^1.6"
+        "doctrine/collections": "^1.6",
+        "nette/utils": "^3.2",
+        "nette/safe-stream": "^2.4"
     }
 }

@@ -1,0 +1,75 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType array $hospitalized}
+
+<div class="row">
+    <div class="col-sm-6 col-lg-3">
+        <div class="shadow-sm">
+            <div class="bg-secondary bg-opacity text-white">
+                <div class="h5 p-4 mb-0">&nbsp;</div>
+            </div>
+            <div class="bg-light p-4 mb-4">
+                <div class="h6 mt-3">Hospitalizovaných</div>
+                <div class="h2">
+                    {$hospitalized['all']['absolute']|number: 0, '.', ' '}
+                    <span class="lead d-lg-block d-xl-inline">&nbsp;</span>
+                </div>
+                <div class="h6 mt-3 pb-2">Celkově hospitalizovaných za období</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="shadow-sm">
+            <div class="bg-secondary text-white">
+                <div class="h5 p-4 mb-0">Neočkovaní</div>
+            </div>
+            <div class="bg-light p-4 mb-4">
+                <div class="h6 mt-3">Hospitalizovaných</div>
+                <div class="h2">
+                    {($hospitalized['notVaccinated']['absolute'] + $hospitalized['firstVaccination']['absolute'])|number: 0, '.', ' '}
+                    <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $hospitalized['notVaccinated']['percent'] + $hospitalized['firstVaccination']['percent'])} %)</span>
+                </div>
+                <div class="mt-4 text-end">
+                    <span class="fw-bold">každých {(100-(100 - ($hospitalized['notVaccinated']['percent'] + $hospitalized['firstVaccination']['percent'])))|number: 1} ze 100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="shadow-sm">
+            <div class="bg-secondary bg-opacity text-white">
+                <div class="h5 p-4 mb-0">Očkovaní (2. dávka)</div>
+            </div>
+            <div class="bg-light p-4 mb-4">
+                <div class="h6 mt-3">Hospitalizovaných</div>
+                <div class="h2">
+                    {$hospitalized['secondVaccination']['absolute']|number: 0, '.', ' '}
+                    <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $hospitalized['secondVaccination']['percent'])} %)</span>
+                </div>
+                <div class="mt-4 text-end">
+                    <span class="fw-bold">každých {(100 - (100 - ($hospitalized['secondVaccination']['percent'])))|number: 1} ze 100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="shadow-sm">
+            <div class="bg-secondary bg-opacity text-white">
+                <div class="h5 p-4 mb-0">Očkovaní (3. dávka)</div>
+            </div>
+            <div class="bg-light p-4 mb-4">
+                <div class="h6 mt-3">Hospitalizovaných</div>
+                <div class="h2">
+                    {$hospitalized['thirdVaccination']['absolute']|number: 0, '.', ' '}
+                    <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $hospitalized['thirdVaccination']['percent'])} %)</span>
+                </div>
+                <div class="mt-4 text-end">
+                    <span class="fw-bold">každých {(100 - (100 - ($hospitalized['thirdVaccination']['percent'])))|number: 1} lidí ze 100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
