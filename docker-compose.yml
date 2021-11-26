@@ -12,8 +12,8 @@ services:
     networks:
       - nginx_proxy_network
     environment:
-      VIRTUAL_HOST: kdyskoncicovid.cz
-      VIRTUAL_HOST_ALIAS: www.kdyskoncicovid.cz
-      LETSENCRYPT_HOST: kdyskoncicovid.cz,www.kdyskoncicovid.cz
+      VIRTUAL_HOST: maockovanismysl.cz
+      VIRTUAL_HOST_ALIAS: www.maockovanismysl.cz
+      LETSENCRYPT_HOST: maockovanismysl.cz,www.maockovanismysl.cz
     volumes:
       - $PWD:/var/www/html:cached
