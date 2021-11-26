@@ -6,32 +6,40 @@
 {varType array $deaths}
 
 <div class="row">
-    <div class="col-6 col-lg-3">
+    <div class="col-sm-6 col-lg-3">
         <div class="bg-secondary text-white p-4 mb-4">
-            <div class="lead text-end mb-2">{$deaths['all']['percent']|number: 2, '.'}%</div>
+            <div class="lead text-end mb-1">{$deaths['all']['percent']|number: 2, '.'} %</div>
+            <div class="mb-2 small">&nbsp;</div>
             <div class="h1">{$deaths['all']['absolute']|number: 0, '.', ' '}</div>
             <div>Celková úmrtí za uvedené období</div>
         </div>
     </div>
-    <div class="col-6 col-lg-3">
+    <div class="col-sm-6 col-lg-3">
         <div class="bg-secondary text-white p-4 mb-4">
-            <div class="lead text-end mb-2">
-                {(sprintf('%.2f', $deaths['notVaccinated']['percent'] + $deaths['firstVaccination']['percent']))}%
+            <div class="lead text-end mb-1">{sprintf('%.2f', $deaths['notVaccinated']['percent'] + $deaths['firstVaccination']['percent'])} %</div>
+            <div class="mb-2 small text-end">
+                <span class="fw-bold">Přežije {(100 - ($deaths['notVaccinated']['percent'] + $deaths['firstVaccination']['percent']))|floor} lidí ze 100</span>
             </div>
             <div class="h1">{($deaths['notVaccinated']['absolute'] + $deaths['firstVaccination']['absolute'])|number: 0, '.', ' '}</div>
             <div>Úmrtí neočkovaných</div>
         </div>
     </div>
-    <div class="col-6 col-lg-3">
+    <div class="col-sm-6 col-lg-3">
         <div class="bg-secondary text-white p-4 mb-4">
-            <div class="lead text-end mb-2">{sprintf('%.2f', $deaths['secondVaccination']['percent'])}%</div>
+            <div class="lead text-end mb-1">{sprintf('%.2f', $deaths['secondVaccination']['percent'])} %</div>
+            <div class="mb-2 small text-end">
+                <span class="fw-bold">Přežije {(100 - ($deaths['secondVaccination']['percent']))|floor} lidí ze 100</span>
+            </div>
             <div class="h1">{$deaths['secondVaccination']['absolute']|number: 0, '.', ' '}</div>
             <div>Úmrtí očkovaných s 2. dávkou</div>
         </div>
     </div>
-    <div class="col-6 col-lg-3">
+    <div class="col-sm-6 col-lg-3">
         <div class="bg-secondary text-white p-4 mb-4">
-            <div class="lead text-end mb-2">{sprintf('%.2f', $deaths['thirdVaccination']['percent'])}%</div>
+            <div class="lead text-end mb-1">{sprintf('%.2f', $deaths['thirdVaccination']['percent'])} %</div>
+            <div class="mb-2 small text-end">
+                <span class="fw-bold">Přežije {(100 - ($deaths['thirdVaccination']['percent']))|floor} lidí ze 100</span>
+            </div>
             <div class="h1">{$deaths['thirdVaccination']['absolute']|number: 0, '.', ' '}</div>
             <div>Úmrtí očkovaných se 3. dávkou</div>
         </div>
