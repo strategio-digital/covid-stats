@@ -1,0 +1,13 @@
+{extends ../@layout.latte}
+
+{block content}
+    <div class="mb-5">
+        {include table/deaths.latte}
+    </div>
+
+    <div class="opacity-25">
+        <h2>Celková sumarizace (v přípravě)</h2>
+        <p>Tabulku prozatím nelze připravit - někerá data nedokážeme rozdělit do potřebných skupin, nedokážeme je filtrovat podle období a neradi bychom je znepřesnili.</p>
+        {include table/summary.latte}
+    </div>
+{/block}

@@ -1,0 +1,19 @@
+version: '3'
+
+networks:
+  nginx_proxy_network:
+    external:
+      name: nginx_proxy_network
+
+services:
+  app:
+    build: .
+    restart: "always"
+    networks:
+      - nginx_proxy_network
+    environment:
+      VIRTUAL_HOST: kdyskoncicovid.cz
+      VIRTUAL_HOST_ALIAS: www.kdyskoncicovid.cz
+      LETSENCRYPT_HOST: kdyskoncicovid.cz,www.kdyskoncicovid.cz
+    volumes:
+      - $PWD:/var/www/html:cached
