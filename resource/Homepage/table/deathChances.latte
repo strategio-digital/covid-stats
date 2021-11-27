@@ -12,7 +12,7 @@
                 <div class="h5 p-4 mb-0">&nbsp;</div>
             </div>
             <div class="bg-secondary text-white p-4 mb-4">
-                <div class="h6 mt-3">Obecná úmrtnost za období</div>
+                <div class="h6 mt-3">Ze všech hospitalizovaných zemře</div>
                 <div class="h2">{$deathChances['all']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
                     <span class="fw-bold">každý {$deathChances['all']['repetitionBy100']|number: 1, '.', ''} člověk zemře</span>
@@ -29,7 +29,7 @@
                 <div class="h6 mt-3">Tvá šance na úmrtí</div>
                 <div class="h2">{$deathChances['notVax']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každý {$deathChances['notVax']['repetitionBy100']|number: 1, '.', ''} člověk zemře</span>
+                    <span class="fw-bold opacity-0">každý {$deathChances['notVax']['repetitionBy100']|number: 1, '.', ''} člověk zemře</span>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="h6 mt-3">Tvá šance na úmrtí</div>
                 <div class="h2">{$deathChances['secondVax']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každý {$deathChances['secondVax']['repetitionBy100']|number: 1, '.', ''} člověk zemře</span>
+                    <span class="fw-bold opacity-0">každý {$deathChances['secondVax']['repetitionBy100']|number: 1, '.', ''} člověk zemře</span>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="h6 mt-3">Tvá šance na úmrtí</div>
                 <div class="h2">{$deathChances['thirdVax']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každý {$deathChances['thirdVax']['repetitionBy100']|number: 1, '.', ''} člověk zemře</span>
+                    <span class="fw-bold opacity-0">každý {$deathChances['thirdVax']['repetitionBy100']|number: 1, '.', ''} člověk zemře</span>
                 </div>
             </div>
         </div>

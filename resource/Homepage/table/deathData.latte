@@ -1,0 +1,75 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType array $deaths}
+{block deathData}
+    {var $data = array_reverse($deaths['data'])}
+    <div class="table-responsive">
+        <table class="table table-bordered mb-0" style="white-space: nowrap">
+            <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Celkem úmrtí</th>
+                <th>Neočkovaní</th>
+                <th><span class="text-danger fw-bold">Ne</span>očkovaní (1.dávka)</th>
+                <th>Celkem neočkovaní</th>
+                <th>Očkovaní 2. dávka</th>
+                <th>Očkovaní 3. dávka</th>
+                <th>Celkem očkovaní</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $data as $death}
+                {varType \Datetime $date}
+                <tr n:class="$iterator->isFirst() ? 'bg-light'">
+                    <td>
+                        {var $date = new \Datetime($death['datum'])}
+                        {php echo $date->format('j.n.Y')}
+                    </td>
+                    <td class="bg-light fw-bold">{$death['zemreli_celkem']}</td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {$death['zemreli_bez_ockovani']}
+                            {if $death['zemreli_bez_ockovani_vek_prumer']}
+                                <span class="ms-2 text-danger small" data-bs-toggle="tooltip"
+                                      title="Věkový průměr">(VP: {$death['zemreli_bez_ockovani_vek_prumer']})</span>
+                            {/if}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {$death['zemreli_nedokoncene_ockovani']}
+                            {if $death['zemreli_nedokoncene_ockovani'] !== 0}
+                                <span class="ms-2 text-danger small" data-bs-toggle="tooltip"
+                                      title="Věkový průměr">(VP: {$death['zemreli_nedokoncene_ockovani_vek_prumer']})</span>
+                            {/if}
+                        </div>
+                    </td>
+                    <td class="bg-light">{$death['zemreli_bez_ockovani'] + $death['zemreli_nedokoncene_ockovani']}</td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {$death['zemreli_dokoncene_ockovani']}
+                            {if $death['zemreli_dokoncene_ockovani'] !== 0}
+                                <span class="ms-2 text-danger small" data-bs-toggle="tooltip"
+                                      title="Věkový průměr">(VP: {$death['zemreli_dokoncene_ockovani_vek_prumer']})</span>
+                            {/if}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {$death['zemreli_posilujici_davka']}
+                            {if $death['zemreli_posilujici_davka'] !== 0}
+                                <span class="ms-2 text-danger small" data-bs-toggle="tooltip"
+                                      title="Věkový průměr">(VP: {$death['zemreli_posilujici_davka_vek_prumer']})</span>
+                            {/if}
+                        </div>
+                    </td>
+                    <td class="bg-light">{$death['zemreli_dokoncene_ockovani'] + $death['zemreli_posilujici_davka_vek_prumer']}</td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+{/block}

@@ -61,9 +61,11 @@ class Homepage
             'startDate' => $startDate,
             'endDate' => $endDate,
             'deaths' => [
+                'data' => $deaths->getData(),
                 'stats' => $deaths->getStats()
             ],
             'hospitalized' => [
+                'data' => $hospitalized->getData(),
                 'stats' => $hospitalized->getStats(),
             ],
             'summary' => [

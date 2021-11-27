@@ -1,15 +1,22 @@
 {extends ../@layout.latte}
 
-{varType array $hospitalized}
-
 {block content}
     <section class="bg-white py-5">
         <div class="container">
             <h2 class="mb-4">Jakou mám šanci, že zemřu, když se dostanu do nemocnice?</h2>
             {include table/deathChances.latte}
             <blockquote class="blockquote text-secondary">
-                <em>* Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 70 %).</em>
+                <em>
+                    * Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 90 %) -
+                    <a class="link-danger" data-bs-toggle="collapse" href="#deathData" role="button" aria-expanded="false" aria-controls="deathData">
+                        zobrazit detailní úmrtnost.
+                    </a>
+                </em>
             </blockquote>
+
+            <div class="collapse" id="deathData">
+                {include table/deathData.latte}
+            </div>
         </div>
     </section>
 
@@ -18,12 +25,16 @@
             <h2 class="mb-4">Jaký je počet hospitalizací dle očkovanosti?</h2>
             {include table/hospitalized.latte}
             <blockquote class="blockquote text-secondary">
-                <em>
-                    * Ze 100 lidí je v nemocnici
-                    {$hospitalized['stats']['secondVax']['percent'] + $hospitalized['stats']['thirdVax']['percent'] |number: 1, ','}
-                    očkovaných, zbytek tvoří neočkovaní.
+                <em>*
+                    <a class="link-danger" data-bs-toggle="collapse" href="#hospitalizedData" role="button" aria-expanded="false" aria-controls="hospitalizedData">
+                        Zobrazit detailní hospitalizace.
+                    </a>
                 </em>
             </blockquote>
+
+            <div class="collapse" id="hospitalizedData">
+                {include table/hospitalizedData.latte}
+            </div>
         </div>
     </section>
 
@@ -32,7 +43,7 @@
             <h2 class="mb-4">Jaký je počet úmrtí dle očkovanosti?</h2>
             {include table/deaths.latte}
             <blockquote class="blockquote text-secondary">
-                <em>* Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 70 %).</em>
+                <em>* Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 90 %) - viz detailní úmrtnost výše.</em>
             </blockquote>
         </div>
     </section>
@@ -44,7 +55,7 @@
                 <blockquote class="blockquote">
                     <p>
                         S novou Jihoafrickou mutací, která se do Evropy šíří extrémní rychlostí &ndash;
-                        <strong class="fw-bold">O&nbsp;500 % rychleji než delta, je 98% jistota, že COVID chytneš</strong>.
+                        <strong class="fw-bold">O&nbsp;500 % rychleji než delta, je 100% jistota, že COVID chytneš</strong>.
                     </p>
                 </blockquote>
                 <figcaption class="blockquote-footer">
@@ -83,7 +94,7 @@
     <section class="bg-white py-5">
         <div class="container py-5">
             <div class="opacity-25">
-                <h2>Detailní sumarizace úmrtnosti (v přípravě)</h2>
+                <h2>Detailní predikce úmrtnosti (v přípravě)</h2>
                 <p>Tabulku prozatím nelze připravit - někerá data nedokážeme rozdělit do potřebných skupin, nedokážeme je filtrovat podle období a neradi bychom publikovali nepřesné výsledky.</p>
                 {include table/summary.latte}
             </div>
