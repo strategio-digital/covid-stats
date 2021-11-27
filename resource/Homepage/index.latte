@@ -1,13 +1,13 @@
 {extends ../@layout.latte}
 
 {block content}
-    <section class="bg-white py-5">
+    <section class="bg-white py-3 py-lg-5">
         <div class="container">
             <h2 class="mb-4">Jakou mám šanci, že zemřu, když se dostanu do nemocnice?</h2>
             {include table/deathChances.latte}
             <blockquote class="blockquote text-secondary">
                 <em>
-                    * Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 90 %) -
+                    *
                     <a class="link-danger" data-bs-toggle="collapse" href="#deathData" role="button" aria-expanded="false" aria-controls="deathData">
                         zobrazit detailní úmrtnost.
                     </a>
@@ -20,7 +20,7 @@
         </div>
     </section>
 
-    <section class="bg-white py-5">
+    <section class="bg-white py-3 py-lg-5">
         <div class="container">
             <h2 class="mb-4">Jaký je počet hospitalizací dle očkovanosti?</h2>
             {include table/hospitalized.latte}
@@ -38,20 +38,20 @@
         </div>
     </section>
 
-    <section class="bg-white py-5">
+    <section class="bg-white py-3 py-lg-5">
         <div class="container">
             <h2 class="mb-4">Jaký je počet úmrtí dle očkovanosti?</h2>
             {include table/deaths.latte}
             <blockquote class="blockquote text-secondary">
-                <em>* Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 90 %) - viz detailní úmrtnost výše.</em>
+                <em>* detailní úmrtnost viz odkaz výše.</em>
             </blockquote>
         </div>
     </section>
 
-    <section class="bg-white py-5">
-        <div class="container pb-5">
-            <h2>Jakou mám šanci, že chytnu COVID v těžké formě?</h2>
-            <figure class="mb-5">
+    <section class="bg-white py-3 py-lg-5">
+        <div class="container pb-4 pb-lg-5">
+            <h2 class="mb-3">Jakou mám šanci, že chytnu COVID v těžké formě?</h2>
+            <figure class="mb-4">
                 <blockquote class="blockquote">
                     <p>
                         S novou Jihoafrickou mutací, která se do Evropy šíří extrémní rychlostí &ndash;
@@ -64,12 +64,12 @@
             </figure>
 
             <div class="row">
-                <div class="col-lg-6 mb-3">
+                <div class="col-lg-6 mt-3">
                     <a href="/img/sireni-viru.jpg" target="_blank">
                         <img src="/img/sireni-viru.jpg" alt="Rychlost šíření viru" class="img-fluid">
                     </a>
                 </div>
-                <div class="col-lg-6 mb-3">
+                <div class="col-lg-6 mt-3">
                     <a href="/img/sireni-viru-v2.jpg" target="_blank">
                         <img src="/img/sireni-viru-v2.jpg" alt="Rychlost šíření viru" class="img-fluid">
                     </a>
@@ -78,10 +78,10 @@
         </div>
     </section>
 
-    <section class="bg-danger py-5">
+    <section class="bg-danger py-lg-5">
         <div class="container text-white" style="padding-top: 10rem; padding-bottom: 10rem">
-            <h2 class="h1">Nechceš v následujících týdnech umřít?</h2>
-            <p class="h4 fw-normal mb-5">Očkuj se. Tvá rodina, nejbližší a přátelé o tebe opravdu nechtějí přijít.</p>
+            <h2 class="h1">Nechceš umřít?</h2>
+            <p class="h4 fw-normal mb-5">Očkuj se. Tvá rodina, nejbližší a přátelé o tebe nechtějí přijít.</p>
             <a href="https://registrace.mzcr.cz/" target="_blank" class="btn btn-lg btn-light mb-3 me-2">
                 Registrovat se na očkování
             </a>
@@ -91,10 +91,10 @@
         </div>
     </section>
 
-    <section class="bg-white py-5">
+    <section class="bg-white py-3 py-lg-5">
         <div class="container py-5">
             <div class="opacity-25">
-                <h2>Detailní predikce úmrtnosti (v přípravě)</h2>
+                <h2>Predikce úmrtnosti dle skupin (v přípravě)</h2>
                 <p>Tabulku prozatím nelze připravit - někerá data nedokážeme rozdělit do potřebných skupin, nedokážeme je filtrovat podle období a neradi bychom publikovali nepřesné výsledky.</p>
                 {include table/summary.latte}
             </div>
@@ -102,12 +102,12 @@
     </section>
 
     <section class="py-5 bg-light">
-        <div class="container pt-5 pb-4 text-center">
-            <h2 class="h1 mb-4">Prosím, naočkuj se dřív, než z tebe bude jen číslo ve statistice!</h2>
-            <a href="https://registrace.mzcr.cz/" target="_blank" class="btn btn-lg btn-danger mb-3 me-2">
+        <div class="container py-3 py-lg-5 text-center">
+            <h2 class="h1 mb-3">Prosím, naočkuj se dřív, než z tebe bude jen číslo ve statistice!</h2>
+            <a href="https://registrace.mzcr.cz/" target="_blank" class="btn btn-lg btn-danger mt-3 me-2">
                 Registrovat se na očkování
             </a>
-            <a href="https://ockovani.opendatalab.cz/mista" target="_blank" class="btn btn-lg btn-outline-danger mb-3">
+            <a href="https://ockovani.opendatalab.cz/mista" target="_blank" class="btn btn-lg btn-outline-danger mt-3">
                 Přehled volných očkovacích míst
             </a>
         </div>
