@@ -1,17 +1,39 @@
 {extends ../@layout.latte}
 
+{varType array $hospitalized}
+
 {block content}
     <section class="bg-white py-5">
         <div class="container">
-            <h2 class="mb-4">Jakou mám šanci, že neumřu, když se dostanu do nemocnice?</h2>
-            {include table/deaths.latte}
+            <h2 class="mb-4">Jakou mám šanci, že zemřu, když se dostanu do nemocnice?</h2>
+            {include table/deathChances.latte}
+            <blockquote class="blockquote text-secondary">
+                <em>* Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 70 %).</em>
+            </blockquote>
         </div>
     </section>
 
     <section class="bg-white py-5">
         <div class="container">
-            <h2 class="mb-4">Jakou mám šanci, že budu hospitalizován v nemocnici?</h2>
+            <h2 class="mb-4">Jaký je počet hospitalizací dle očkovanosti?</h2>
             {include table/hospitalized.latte}
+            <blockquote class="blockquote text-secondary">
+                <em>
+                    * Ze 100 lidí je v nemocnici pouze
+                    {$hospitalized['secondVaccination']['percent'] + $hospitalized['thirdVaccination']['percent'] |number: 1, ','}
+                    očkovaných, zbytek tvoří neočkovaní.
+                </em>
+            </blockquote>
+        </div>
+    </section>
+
+    <section class="bg-white py-5">
+        <div class="container">
+            <h2 class="mb-4">Jaký je počet úmrtí dle očkovanosti?</h2>
+            {include table/deaths.latte}
+            <blockquote class="blockquote text-secondary">
+                <em>* Většinu úmrtí očkovaných tvoří skupina ve věku 75+ (cca 70 %).</em>
+            </blockquote>
         </div>
     </section>
 
@@ -22,7 +44,7 @@
                 <blockquote class="blockquote">
                     <p>
                         S novou Jihoafrickou mutací, která se do Evropy šíří extrémní rychlostí &ndash;
-                        <strong class="fw-bold">O 500 % rychleji než delta, je 100% jistota, že COVID chytneš</strong>.
+                        <strong class="fw-bold">O&nbsp;500 % rychleji než delta, je 98% jistota, že COVID chytneš</strong>.
                     </p>
                 </blockquote>
                 <figcaption class="blockquote-footer">
@@ -65,6 +87,18 @@
                 <p>Tabulku prozatím nelze připravit - někerá data nedokážeme rozdělit do potřebných skupin, nedokážeme je filtrovat podle období a neradi bychom publikovali nepřesné výsledky.</p>
                 {include table/summary.latte}
             </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light">
+        <div class="container pt-5 pb-4 text-center">
+            <h2 class="h1 mb-4">Prosím, naočkuj se dřív, než z tebe bude jen číslo ve statistice!</h2>
+            <a href="https://registrace.mzcr.cz/" target="_blank" class="btn btn-lg btn-danger mb-3 me-2">
+                Registrovat se na očkování
+            </a>
+            <a href="https://ockovani.opendatalab.cz/mista" target="_blank" class="btn btn-lg btn-outline-danger mb-3">
+                Přehled volných očkovacích míst
+            </a>
         </div>
     </section>
 {/block}
