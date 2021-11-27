@@ -8,12 +8,10 @@ use App\Model\Dataset\HospitalizedDataset;
 use App\Model\Dataset\SummaryDataset;
 use App\Model\MzcrApi;
 use Latte\Engine;
-use Symfony\Component\HttpFoundation\Request;
+use Nette\Http\Request;
 
 class Homepage
 {
-    protected Engine $latte;
-    
     protected MzcrApi $mzcrApi;
     
     protected DeathsDataset $deathsDataset;
@@ -24,12 +22,8 @@ class Homepage
     
     protected DeathChancesAggregation $deathChancesAggregation;
     
-    protected int $days;
-    
-    public function __construct(protected Request $request)
+    public function __construct(protected Request $request, protected Engine $latte)
     {
-        $this->days = (int) $this->request->get('days', 365.25 * 4);
-        
         $this->mzcrApi = new MzcrApi();
         
         $this->deathsDataset = new DeathsDataset($this->mzcrApi);
@@ -37,16 +31,15 @@ class Homepage
         $this->summaryDataset = new SummaryDataset($this->mzcrApi);
         
         $this->deathChancesAggregation = new DeathChancesAggregation();
-    
-        $this->latte = new Engine();
-        $this->latte->setTempDirectory(__DIR__ . '/../../temp/latte');
     }
     
     public function index(): void
     {
+        $days = (int) $this->request->getQuery('days') ?: 365.25 * 4;
+        
         // Datasets
-        $deaths = $this->deathsDataset->fetch($this->days);
-        $hospitalized = $this->hospitalizedDataset->fetch($this->days);
+        $deaths = $this->deathsDataset->fetch($days);
+        $hospitalized = $this->hospitalizedDataset->fetch($days);
         $summary = $this->summaryDataset->fetch();
         
         // Aggregations

@@ -1,0 +1,35 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType array $data}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover mb-0">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Věk</th>
+                <th>Pohlaví</th>
+                <th>Kraj (nuts)</th>
+                <th>Okres (lau)</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach $data as $death}
+            <tr>
+                <td>
+                    {varType \Datetime $date}
+                    {var $date = new \Datetime($death['datum'])}
+                    {php echo $date->format('j.n.Y')}
+                </td>
+                <td>{$death['vek']}</td>
+                <td>{$death['pohlavi'] === 'M' ? 'Muž' : 'Žena'}</td>
+                <td>{$death['kraj_nuts_kod']}</td>
+                <td>{$death['okres_lau_kod']}</td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

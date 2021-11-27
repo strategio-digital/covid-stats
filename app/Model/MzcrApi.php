@@ -22,29 +22,35 @@ class MzcrApi
         ]);
     }
     
-    public function ockovaniZakladniPrehled(int $page): array
+    public function ockovaniZakladniPrehled(int $page, array $params = []): array
     {
         return $this->get("ockovani-zakladni-prehled?page={$page}");
     }
     
-    public function ockovani(int $page): array
+    public function ockovani(int $page, array $params = []): array
     {
         return $this->get("ockovani?page={$page}");
     }
     
-    public function ockovaniUmrti(int $page): array
+    public function ockovaniUmrti(int $page, array $params = []): array
     {
         return $this->get("ockovani-umrti?page={$page}");
     }
     
-    public function ockovaniPozitivni(int $page): array
+    public function ockovaniPozitivni(int $page, array $params = []): array
     {
         return $this->get("ockovani-pozitivni?page={$page}");
     }
     
-    public function ockovaniHospitalizace(int $page): array
+    public function ockovaniHospitalizace(int $page, array $params = []): array
     {
         return $this->get("ockovani-hospitalizace?page={$page}");
+    }
+    
+    public function umrti(int $page, array $params = []): array
+    {
+        $query = http_build_query($params);
+        return $this->get("umrti?page={$page}&{$query}");
     }
     
     protected function get(string $url): array

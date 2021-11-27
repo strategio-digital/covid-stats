@@ -7,17 +7,18 @@
 {block deathData}
     {var $data = array_reverse($deaths['data'])}
     <div class="table-responsive">
-        <table class="table table-bordered mb-0" style="white-space: nowrap">
+        <table class="table table-bordered table-hover mb-0" style="white-space: nowrap; vertical-align: middle">
             <thead>
             <tr>
                 <th>Datum</th>
                 <th>Celkem úmrtí</th>
                 <th>Neočkovaní</th>
                 <th><span class="text-danger fw-bold">Ne</span>očkovaní (1.dávka)</th>
-                <th>Celkem neočkovaní</th>
+                <th>Celkem</th>
                 <th>Očkovaní 2. dávka</th>
                 <th>Očkovaní 3. dávka</th>
-                <th>Celkem očkovaní</th>
+                <th>Celkem</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -66,7 +67,12 @@
                             {/if}
                         </div>
                     </td>
-                    <td class="bg-light">{$death['zemreli_dokoncene_ockovani'] + $death['zemreli_posilujici_davka_vek_prumer']}</td>
+                    <td class="bg-light">{$death['zemreli_dokoncene_ockovani'] + $death['zemreli_posilujici_davka']}</td>
+                    <td>
+                        <button class="btn btn-outline-secondary btn-sm" data-btn="death-detail" data-date="{$death['datum']}" {$iterator->isFirst() ? 'disabled'}>
+                            Detail
+                        </button>
+                    </td>
                 </tr>
             {/foreach}
             </tbody>
