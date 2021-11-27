@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Model\Aggregation\DeathChancesAggregation;
 use App\Model\Dataset\DeathsDataset;
 use App\Model\Dataset\HospitalizedDataset;
 use App\Model\Dataset\SummaryDataset;
 use App\Model\MzcrApi;
 use Latte\Engine;
+use Symfony\Component\HttpFoundation\Request;
 
 class Homepage
 {
@@ -20,13 +22,21 @@ class Homepage
     
     protected SummaryDataset $summaryDataset;
     
-    public function __construct()
-    {
-        $this->mzcrApi = new MzcrApi();
+    protected DeathChancesAggregation $deathChancesAggregation;
     
+    protected int $days;
+    
+    public function __construct(protected Request $request)
+    {
+        $this->days = (int) $this->request->get('days', 1000);
+        
+        $this->mzcrApi = new MzcrApi();
+        
         $this->deathsDataset = new DeathsDataset($this->mzcrApi);
         $this->hospitalizedDataset = new HospitalizedDataset($this->mzcrApi);
         $this->summaryDataset = new SummaryDataset($this->mzcrApi);
+        
+        $this->deathChancesAggregation = new DeathChancesAggregation();
     
         $this->latte = new Engine();
         $this->latte->setTempDirectory(__DIR__ . '/../../temp/latte');
@@ -35,9 +45,12 @@ class Homepage
     public function index(): void
     {
         // Datasets
-        $deaths = $this->deathsDataset->fetch();
-        $hospitalized = $this->hospitalizedDataset->fetch();
+        $deaths = $this->deathsDataset->fetch($this->days);
+        $hospitalized = $this->hospitalizedDataset->fetch($this->days);
         $summary = $this->summaryDataset->fetch();
+        
+        // Aggregations
+        $deathChances = $this->deathChancesAggregation->getStats($deaths->getStats(), $hospitalized->getStats());
     
         // Dates
         $endDate = new \DateTime();
@@ -48,10 +61,15 @@ class Homepage
         $this->latte->render(__DIR__ . '/../../resource/Homepage/index.latte', [
             'startDate' => $startDate->modify('-2 months'),
             'endDate' => $endDate,
-            
-            'deaths' => $deaths->getStats(),
-            'hospitalized' => $hospitalized->getStats(),
+            'deaths' => [
+                'stats' => $deaths->getStats()
+            ],
+            'hospitalized' => [
+                'stats' => $hospitalized->getStats(),
+            ],
             'summary' => $summary->getData(),
+            
+            'deathChances' => $deathChances,
         ]);
     }
 }

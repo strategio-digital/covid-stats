@@ -17,10 +17,10 @@ class HospitalizedDataset extends AbstractDataset
     {
     }
     
-    public function fetch(): HospitalizedDataset
+    public function fetch(int $days): HospitalizedDataset
     {
         $response = $this->mzcrApi->ockovaniHospitalizace(1);
-        $this->data = $this->fetchAll($response, 'ockovaniHospitalizace');
+        $this->data = $this->fetchAll($response, 'ockovaniHospitalizace', $days);
         return $this;
     }
     
@@ -62,19 +62,19 @@ class HospitalizedDataset extends AbstractDataset
                 'absolute' => $sumDeaths,
             ],
             'notVaccinated' => [
-                'percent' => (100 / $sumDeaths) * $sumNotVaccinated,
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumNotVaccinated,
                 'absolute' => $sumNotVaccinated
             ],
             'firstVaccination' => [
-                'percent' => (100 / $sumDeaths) * $sumFirstVaccination,
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumFirstVaccination,
                 'absolute' => $sumFirstVaccination
             ],
             'secondVaccination' => [
-                'percent' => (100 / $sumDeaths) * $sumSecondVaccination,
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumSecondVaccination,
                 'absolute' => $sumSecondVaccination
             ],
             'thirdVaccination' => [
-                'percent' => (100 / $sumDeaths) * $sumThirdVaccination,
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumThirdVaccination,
                 'absolute' => $sumThirdVaccination
             ]
         ];

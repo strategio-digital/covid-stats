@@ -12,8 +12,8 @@ services:
     networks:
       - nginx_proxy_network
     environment:
-      VIRTUAL_HOST: covidbezockovani.cz
-      VIRTUAL_HOST_ALIAS: www.covidbezockovani.cz
-      LETSENCRYPT_HOST: covidbezockovani.cz,www.covidbezockovani.cz
+      VIRTUAL_HOST: zvladnucovid.cz
+      VIRTUAL_HOST_ALIAS: www.zvladnucovid.cz,www.covidbezockovani.cz
+      LETSENCRYPT_HOST: zvladnucovid.cz,www.zvladnucovid.cz,covidbezockovani.cz,www.covidbezockovani.cz
     volumes:
       - $PWD:/var/www/html:cached

@@ -53,11 +53,7 @@ class MzcrApi
             FileSystem::createDir(self::CACHE_PATH);
         }
     
-        $fileName = Strings::webalize($url) . '.json';
-        if (Strings::endsWith($fileName, 'page-1.json')) {
-            $fileName = date('jnyH') . '-' . $fileName;
-        }
-        
+        $fileName = date('jnyH') . '_' . Strings::webalize($url) . '.json';
         $filePath = self::CACHE_PATH . $fileName;
         
         if (!file_exists($filePath)) {

@@ -9,7 +9,7 @@ namespace App\Model\Dataset;
 
 abstract class AbstractDataset
 {
-    protected function fetchAll(array $response, string $methodName): array
+    protected function fetchAll(array $response, string $methodName, int $days): array
     {
         $pages = (int)ceil($response['hydra:totalItems'] / 100);
         $data = $response['hydra:member'];
@@ -17,7 +17,16 @@ abstract class AbstractDataset
         for ($i = 2; $i <= $pages; $i++) {
             $data = array_merge($data, $this->mzcrApi->$methodName($i)['hydra:member']);
         }
+    
+        $end = count($data);
+        $days = $days > $end ? $end : $days;
+        $start = $end - $days;
         
-        return $data;
+        $result = [];
+        for ($i = $start; $i < $end; $i++) {
+            $result[] = $data[$i];
+        }
+        
+        return $result;
     }
 }

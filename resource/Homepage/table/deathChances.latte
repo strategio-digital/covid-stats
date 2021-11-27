@@ -3,8 +3,7 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType array $deaths}
-{varType array $hospitalized}
+{varType array $deathChances}
 
 <div class="row">
     <div class="col-sm-6 col-lg-3">
@@ -14,10 +13,9 @@
             </div>
             <div class="bg-secondary text-white p-4 mb-4">
                 <div class="h6 mt-3">Průměrná šance na úmrtí</div>
-                {var $all = ($deaths['all']['absolute'] / $hospitalized['all']['absolute']) * 100}
-                <div class="h2">{$all|number: 2} %</div>
+                <div class="h2">{$deathChances['all']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každý {100 / $all|number: 1} člověk zemře</span>
+                    <span class="fw-bold">každý {$deathChances['all']['repetitionBy100']|number: 1} člověk zemře</span>
                 </div>
             </div>
         </div>
@@ -29,10 +27,9 @@
             </div>
             <div class="bg-secondary text-white p-4 mb-4">
                 <div class="h6 mt-3">Šance na úmrtí</div>
-                {var $notVaccinated = (($deaths['notVaccinated']['absolute'] + $deaths['firstVaccination']['absolute']) / ($hospitalized['notVaccinated']['absolute'] + $hospitalized['firstVaccination']['absolute'])) * 100}
-                <div class="h2">{$notVaccinated|number: 2} %</div>
+                <div class="h2">{$deathChances['notVaccinated']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každý {100 / $notVaccinated|number: 1} člověk zemře</span>
+                    <span class="fw-bold">každý {$deathChances['notVaccinated']['repetitionBy100']|number: 1} člověk zemře</span>
                 </div>
             </div>
         </div>
@@ -44,10 +41,9 @@
             </div>
             <div class="bg-secondary text-white p-4 mb-4">
                 <div class="h6 mt-3">Šance na úmrtí</div>
-                {var $secondVaccination = ($deaths['secondVaccination']['absolute'] / $hospitalized['secondVaccination']['absolute']) * 100}
-                <div class="h2">{$secondVaccination|number: 2} %</div>
+                <div class="h2">{$deathChances['secondVaccination']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každý {100 / $secondVaccination|number: 1} člověk zemře</span>
+                    <span class="fw-bold">každý {$deathChances['secondVaccination']['repetitionBy100']|number: 1} člověk zemře</span>
                 </div>
             </div>
         </div>
@@ -59,10 +55,9 @@
             </div>
             <div class="bg-secondary text-white p-4 mb-4">
                 <div class="h6 mt-3">Šance na úmrtí</div>
-                {var $thirdVaccination = ($deaths['thirdVaccination']['absolute'] / $hospitalized['thirdVaccination']['absolute']) * 100}
-                <div class="h2">{$thirdVaccination|number: 2} %</div>
+                <div class="h2">{$deathChances['thirdVaccination']['percent']|number: 2} %</div>
                 <div class="mt-4 text-end">
-                    <span class="fw-bold">každý {100 / $thirdVaccination|number: 1} člověk zemře</span>
+                    <span class="fw-bold">každý {$deathChances['thirdVaccination']['repetitionBy100']|number: 1} člověk zemře</span>
                 </div>
             </div>
         </div>
