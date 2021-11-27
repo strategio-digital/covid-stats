@@ -5,69 +5,73 @@
 
 {varType \DateTime $startDate}
 {varType \DateTime $endDate}
-{varType Doctrine\Common\Collections\ArrayCollection|App\Entity\Group[] $summary}
+{varType array $summary}
 
-<div class="row">
-    <div class="col-lg-4 offset-lg-4 col-xl-3 offset-xl-6">
-        <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
-                      <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                    </svg>&nbsp;období od:
-                </span>
+{block summary}
+    {varType Doctrine\Common\Collections\ArrayCollection|App\Entity\Group[] $data}
+    {var $data = $summary['data']}
+    <div class="row">
+        <div class="col-lg-4 offset-lg-4 col-xl-3 offset-xl-6">
+            <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                          <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
+                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                        </svg>&nbsp;období od:
+                    </span>
 
-            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="{$startDate->format('d.n.Y')}" disabled>
+                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="{$startDate->format('d.n.Y')}" disabled>
+            </div>
+        </div>
+        <div class="col-lg-4 col-xl-3">
+            <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                          <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
+                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                        </svg>
+                        &nbsp;období do:
+                    </span>
+
+                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="{$endDate->format('d.n.Y')}" disabled>
+            </div>
         </div>
     </div>
-    <div class="col-lg-4 col-xl-3">
-        <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
-                      <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
-                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                    </svg>
-                    &nbsp;období do:
-                </span>
 
-            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="{$endDate->format('d.n.Y')}" disabled>
-        </div>
-    </div>
-</div>
-
-<div class="table-responsive" style="white-space: nowrap">
-    <table class="table table-bordered bg-white mb-0">
-        <thead>
-        <tr>
-            <th>Skupina</th>
-            <th>Počet lidí v ČR</th>
-            <th>Otestovaných v ČR</th>
-            <th>Pozitivních v ČR</th>
-            <th>Hospitalizovaných v ČR</th>
-            <th>Úmrtí</th>
-            <th>Úmrtí %</th>
-            <th>Úmrtí polopatě</th>
-        </tr>
-        </thead>
-        <tbody>
-        {foreach $summary as $data}
-            <tr n:class="$data->getDeathPercent() > 10 ? 'text-danger'">
-                <td>{$data->getAgeRange()}</td>
-                <td>?{$data->getPeopleInCR()}</td>
-                <td>?</td>
-                <td>?</td>
-                <td>?</td>
-                <td>?{$data->getDeaths()}</td>
-                <td>?{$data->getDeathPercent()|number: 1, '.', ''} %</td>
-                <td>
-                    {if $data->getDeathIteration() > 0}
-                        každý {$data->getDeathIteration()|number: 0}.
-                    {else}
-                        -
-                    {/if}
-                </td>
+    <div class="table-responsive" style="white-space: nowrap">
+        <table class="table table-bordered bg-white mb-0">
+            <thead>
+            <tr>
+                <th>Skupina</th>
+                <th>Počet lidí v ČR</th>
+                <th>Otestovaných v ČR</th>
+                <th>Pozitivních v ČR</th>
+                <th>Hospitalizovaných v ČR</th>
+                <th>Úmrtí</th>
+                <th>Úmrtí %</th>
+                <th>Úmrtí polopatě</th>
             </tr>
-        {/foreach}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+            {foreach $data as $group}
+                <tr n:class="$group->getDeathPercent() > 10 ? 'text-danger'">
+                    <td>{$group->getAgeRange()}</td>
+                    <td>?{$group->getPeopleInCR()}</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?{$group->getDeaths()}</td>
+                    <td>?{$group->getDeathPercent()|number: 1, '.', ''} %</td>
+                    <td>
+                        {if $group->getDeathIteration() > 0}
+                            každý {$group->getDeathIteration()|number: 0}.
+                        {else}
+                            -
+                        {/if}
+                    </td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+{/block}

@@ -8,7 +8,7 @@ use Nette\Utils\Strings;
 
 class MzcrApi
 {
-    const CACHE_PATH = __DIR__ . '/../../temp/mzcr-api/';
+    const CACHE_PATH = __DIR__ . '/../../temp/mzcr-api';
     
     protected Client $client;
     
@@ -47,14 +47,16 @@ class MzcrApi
         return $this->get("ockovani-hospitalizace?page={$page}");
     }
     
-    protected function get(string $url) : array
+    protected function get(string $url): array
     {
-        if (!file_exists(self::CACHE_PATH)) {
-            FileSystem::createDir(self::CACHE_PATH);
+        $date = date('Y-m-d-H');
+        $path = self::CACHE_PATH . '/' . $date . '/';
+        if (!file_exists($path)) {
+            FileSystem::createDir($path);
         }
-    
-        $fileName = date('jnyH') . '_' . Strings::webalize($url) . '.json';
-        $filePath = self::CACHE_PATH . $fileName;
+        
+        $fileName = Strings::webalize($url) . '.json';
+        $filePath = $path . $fileName;
         
         if (!file_exists($filePath)) {
             $response = $this->client->get($url . '&apiToken=' . $_ENV['MZCR_API_TOKEN']);

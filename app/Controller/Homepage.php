@@ -28,7 +28,7 @@ class Homepage
     
     public function __construct(protected Request $request)
     {
-        $this->days = (int) $this->request->get('days', 1000);
+        $this->days = (int) $this->request->get('days', 365.25 * 4);
         
         $this->mzcrApi = new MzcrApi();
         
@@ -67,7 +67,9 @@ class Homepage
             'hospitalized' => [
                 'stats' => $hospitalized->getStats(),
             ],
-            'summary' => $summary->getData(),
+            'summary' => [
+                'data' => $summary->getData(),
+            ],
             
             'deathChances' => $deathChances,
         ]);
