@@ -14,10 +14,10 @@ class Bootstrap
         $env = new Dotenv();
         $env->load(__DIR__ . '/../.env');
         
-        $request = Request::createFromGlobals();
-        
+        date_default_timezone_set($_ENV['TZ']);
         Debugger::enable($_ENV['ENV_MODE'] === 'develop' ? Debugger::DEVELOPMENT : Debugger::PRODUCTION);
-        
+    
+        $request = Request::createFromGlobals();
         $controller = new Homepage($request);
         $controller->index();
     }

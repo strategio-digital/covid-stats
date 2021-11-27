@@ -7,49 +7,39 @@ declare(strict_types=1);
 
 namespace App\Model\Aggregation;
 
+use App\Model\Dataset\DeathsDataset;
+use App\Model\Dataset\HospitalizedDataset;
+
 class DeathChancesAggregation
 {
-    public function getStats(array $deaths, array $hospitalized): array
+    public function getStats(HospitalizedDataset $hospitalizedDataset, DeathsDataset $deathsDataset): array
     {
-        $all = 0;
-        if ($hospitalized['all']['absolute'] !== 0) {
-            $all = ($deaths['all']['absolute'] / $hospitalized['all']['absolute']) * 100;
-        }
+        $h = $hospitalizedDataset->getStats();
+        $d = $deathsDataset->getStats();
         
-        $notVaccinated = 0;
-        if ($hospitalized['notVaccinated']['absolute'] + $hospitalized['firstVaccination']['absolute'] !== 0) {
-            $notVaccinated = (
-                    ($deaths['notVaccinated']['absolute'] + $deaths['firstVaccination']['absolute']) /
-                    ($hospitalized['notVaccinated']['absolute'] + $hospitalized['firstVaccination']['absolute'])
-                ) * 100;
-        }
+        $sumHospitalize = $h['all']['abs'];
         
-        $secondVaccination = 0;
-        if ($hospitalized['secondVaccination']['absolute'] !== 0) {
-            $secondVaccination = ($deaths['secondVaccination']['absolute'] / $hospitalized['secondVaccination']['absolute']) * 100;
-        }
+        $notVax = (($d['notVax']['abs'] + $d['firstVax']['abs']) / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
+        $secondVax = ($d['secondVax']['abs'] / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
+        $thirdVax = ($d['thirdVax']['abs'] / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
         
-        $thirdVaccination = 0;
-        if ($hospitalized['thirdVaccination']['absolute'] !== 0) {
-            $thirdVaccination = ($deaths['thirdVaccination']['absolute'] / $hospitalized['thirdVaccination']['absolute']) * 100;
-        }
         
         return [
             'all' => [
-                'percent' => $all,
-                'repetitionBy100' => $all === 0 ? 0 : 100 / $all
+                'percent' => 0,
+                'repetitionBy100' => 0
             ],
-            'notVaccinated' => [
-                'percent' => $notVaccinated,
-                'repetitionBy100' => $notVaccinated === 0 ? 0 : 100 / $notVaccinated
+            'notVax' => [
+                'percent' => $notVax,
+                'repetitionBy100' => $notVax == 0 ? 0 : 100 / $notVax
             ],
-            'secondVaccination' => [
-                'percent' => $secondVaccination,
-                'repetitionBy100' => $secondVaccination === 0 ? 0 : 100 / $secondVaccination,
+            'secondVax' => [
+                'percent' => $secondVax,
+                'repetitionBy100' => $secondVax == 0 ? 0 : 100 / $secondVax,
             ],
-            'thirdVaccination' => [
-                'percent' => $thirdVaccination,
-                'repetitionBy100' => $thirdVaccination === 0 ? 0 : 100 / $thirdVaccination
+            'thirdVax' => [
+                'percent' => $thirdVax,
+                'repetitionBy100' => $thirdVax == 0 ? 0 : 100 / $thirdVax
             ]
         ];
     }

@@ -15,7 +15,7 @@
                 <div class="bg-secondary text-white p-4 mb-4">
                     <div class="h6 mt-3">Úmrtí</div>
                     <div class="h2">
-                        {$stats['all']['absolute']|number: 0, '.', ' '}
+                        {$stats['all']['abs']|number: 0, '.', ' '}
                         <span class="lead d-lg-block d-xl-inline">&nbsp;</span>
                     </div>
                     <div class="h6 mt-4 mb-1">Celková úmrtí za období</div>
@@ -30,11 +30,11 @@
                 <div class="bg-secondary text-white p-4 mb-4">
                     <div class="h6 mt-3">Úmrtí</div>
                     <div class="h2">
-                        {($stats['notVaccinated']['absolute'] + $stats['firstVaccination']['absolute'])|number: 0, '.', ' '}
-                        <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $stats['notVaccinated']['percent'] + $stats['firstVaccination']['percent'])} %)</span>
+                        {($stats['notVax']['abs'] + $stats['firstVax']['abs'])|number: 0, '.', ' '}
+                        <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $stats['notVax']['percent'] + $stats['firstVax']['percent'])} %)</span>
                     </div>
                     <div class="mt-4 text-end">
-                        <span class="fw-bold">{($stats['notVaccinated']['percent'] + $stats['firstVaccination']['percent'])|number: 1} lidí ze 100 zemře</span>
+                        <span class="fw-bold">{($stats['notVax']['percent'] + $stats['firstVax']['percent'])|number: 1} lidí ze 100 zemře</span>
                     </div>
                 </div>
             </div>
@@ -47,11 +47,11 @@
                 <div class="bg-secondary text-white p-4 mb-4">
                     <div class="h6 mt-3">Úmrtí</div>
                     <div class="h2">
-                        {$stats['secondVaccination']['absolute']|number: 0, '.', ' '}
-                        <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $stats['secondVaccination']['percent'])} %)</span>
+                        {$stats['secondVax']['abs']|number: 0, '.', ' '}
+                        <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $stats['secondVax']['percent'])} %)</span>
                     </div>
                     <div class="mt-4 text-end">
-                        <span class="fw-bold">{$stats['secondVaccination']['percent']|number: 1} lidí ze 100 zemře</span>
+                        <span class="fw-bold">{$stats['secondVax']['percent']|number: 1} lidí ze 100 zemře</span>
                     </div>
                 </div>
             </div>
@@ -64,11 +64,11 @@
                 <div class="bg-secondary text-white p-4 mb-4">
                     <div class="h6 mt-3">Úmrtí</div>
                     <div class="h2">
-                        {$stats['thirdVaccination']['absolute']|number: 0, '.', ' '}
-                        <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $stats['thirdVaccination']['percent'])} %)</span>
+                        {$stats['thirdVax']['abs']|number: 0, '.', ' '}
+                        <span class="lead d-lg-block d-xl-inline">({sprintf('%.2f', $stats['thirdVax']['percent'])} %)</span>
                     </div>
                     <div class="mt-4 text-end">
-                        <span class="fw-bold">{$stats['thirdVaccination']['percent']|number: 1} lidí ze 100 zemře</span>
+                        <span class="fw-bold">{$stats['thirdVax']['percent']|number: 1} lidí ze 100 zemře</span>
                     </div>
                 </div>
             </div>

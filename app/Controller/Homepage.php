@@ -50,16 +50,15 @@ class Homepage
         $summary = $this->summaryDataset->fetch();
         
         // Aggregations
-        $deathChances = $this->deathChancesAggregation->getStats($deaths->getStats(), $hospitalized->getStats());
+        $deathChances = $this->deathChancesAggregation->getStats($hospitalized, $deaths);
     
         // Dates
         $endDate = new \DateTime();
-        $startDate = clone $endDate;
-        $startDate->modify("-{$deaths->countDays()} days");
+        $startDate = (new \DateTime('now'))->modify("-{$deaths->countDays()} days");
         
         // Render
         $this->latte->render(__DIR__ . '/../../resource/Homepage/index.latte', [
-            'startDate' => $startDate->modify('-2 months'),
+            'startDate' => $startDate,
             'endDate' => $endDate,
             'deaths' => [
                 'stats' => $deaths->getStats()
