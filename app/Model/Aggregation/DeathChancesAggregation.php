@@ -19,27 +19,34 @@ class DeathChancesAggregation
         
         $sumHospitalize = $h['all']['abs'];
         
-        $notVax = (($d['notVax']['abs'] + $d['firstVax']['abs']) / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
-        $secondVax = ($d['secondVax']['abs'] / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
-        $thirdVax = ($d['thirdVax']['abs'] / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
+        $notVaxPercent = (($d['notVax']['abs'] + $d['firstVax']['abs']) / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
+        $secondVaxPercent = ($d['secondVax']['abs'] / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
+        $thirdVaxPercent = ($d['thirdVax']['abs'] / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
         
+        $notVaxRepetition = $notVaxPercent == 0 ? 0 : 100 / $notVaxPercent;
+        $secondVaxRepetition = $secondVaxPercent == 0 ? 0 : 100 / $secondVaxPercent;
+        $thirdVaxRepetition = $thirdVaxPercent == 0 ? 0 : 100 / $thirdVaxPercent;
+    
+        $avgPercent = (($d['all']['abs']) / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
+        //$avgPercent = ($notVaxPercent + $secondVaxPercent + $thirdVaxPercent) / 3;
+        $avgRepetition = $avgPercent == 0 ? 0 : 100 / $avgPercent;
         
         return [
             'all' => [
-                'percent' => 0,
-                'repetitionBy100' => 0
+                'percent' => $avgPercent,
+                'repetitionBy100' => $avgRepetition
             ],
             'notVax' => [
-                'percent' => $notVax,
-                'repetitionBy100' => $notVax == 0 ? 0 : 100 / $notVax
+                'percent' => $notVaxPercent,
+                'repetitionBy100' => $notVaxRepetition
             ],
             'secondVax' => [
-                'percent' => $secondVax,
-                'repetitionBy100' => $secondVax == 0 ? 0 : 100 / $secondVax,
+                'percent' => $secondVaxPercent,
+                'repetitionBy100' => $secondVaxRepetition,
             ],
             'thirdVax' => [
-                'percent' => $thirdVax,
-                'repetitionBy100' => $thirdVax == 0 ? 0 : 100 / $thirdVax
+                'percent' => $thirdVaxPercent,
+                'repetitionBy100' => $thirdVaxRepetition
             ]
         ];
     }

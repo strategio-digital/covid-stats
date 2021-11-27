@@ -34,9 +34,15 @@
                 Posuď situaci sám, podle aktuálních dat z českých nemocnic a hygienických stanic.
             </p>
             <blockquote class="blockquote">
-                <p>Data jsou zobrazena pro období od <strong>{$startDate->format('j.n.Y')}</strong> až do <strong>{$endDate->format('d.n.Y')}</strong> (aktualizováno každou hodinu).</p>
+                <p>
+                    Data jsou zobrazena pro období od
+                    <strong>{$startDate->format('j.n.Y')}</strong> až do <strong>{$endDate->format('d.n.Y')}</strong>
+                    (posledních {$startDate->diff($endDate)->format('%a')+1} dní).
+                </p>
             </blockquote>
-            <p class="lead"></p>
+            <figcaption class="blockquote-footer">
+                Aktualizace dat probíhá každou hodinu.
+            </figcaption>
         </div>
     </header>
 
