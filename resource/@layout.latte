@@ -26,24 +26,22 @@
     {/if}
 </head>
 <body>
-    <header class="container py-3">
-        <div class="mb-lg-5">
-            <h1 class="display-2 fw-bold">COVID bez&nbsp;očkování?</h1>
-            <p class="lead text-danger">
-                <strong class="fw-bold">Zvládneš to bez očkování?</strong>
-                Posuď situaci sám, podle aktuálních dat z českých nemocnic a hygienických stanic.
+    <header class="container py-3 py-lg-5">
+        <h1 class="display-2 fw-bold">COVID bez&nbsp;očkování?</h1>
+        <p class="lead text-danger">
+            <strong class="fw-bold">Zvládneš to bez očkování?</strong>
+            Posuď situaci sám, podle aktuálních dat z českých nemocnic a hygienických stanic.
+        </p>
+        <blockquote class="blockquote">
+            <p>
+                Data jsou zobrazena pro období od
+                <strong>{$startDate->format('j.n.Y')}</strong> až do <strong>{$endDate->format('d.n.Y')}</strong>
+                (posledních {$startDate->diff($endDate)->format('%a')+1} dní).
             </p>
-            <blockquote class="blockquote">
-                <p>
-                    Data jsou zobrazena pro období od
-                    <strong>{$startDate->format('j.n.Y')}</strong> až do <strong>{$endDate->format('d.n.Y')}</strong>
-                    (posledních {$startDate->diff($endDate)->format('%a')+1} dní).
-                </p>
-            </blockquote>
-            <figcaption class="blockquote-footer">
-                Aktualizace dat probíhá každou hodinu.
-            </figcaption>
-        </div>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            Aktualizace dat probíhá každou hodinu.
+        </figcaption>
     </header>
 
     {include content}
