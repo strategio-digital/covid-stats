@@ -1,0 +1,31 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType array $tests}
+
+<div class="row">
+    <div class="col-12">
+        <div class="bg-success bg-opacity-75 text-white p-4 mt-4 mt-lg-0">
+            <div class="h6 mt-3">Provedených testů</div>
+            <div class="h1">{$tests['stats']['sumAll']|number: 0, '.', ' '}</div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="bg-danger bg-opacity-75 text-white p-4 mt-4">
+            <div class="h6 mt-3">Pozitivní (nakažení)</div>
+            <div class="h1">{$tests['stats']['positive']['percent']|number: 2, '.', ' '}%</div>
+            <div class="h6 mb-0">
+                {$tests['stats']['positive']['abs']|number: 0, '.', ' '} testů
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="bg-success bg-opacity-75 text-white p-4 mt-4">
+            <div class="h6 mt-3">Negativní</div>
+            <div class="h1">{$tests['stats']['negative']['percent']|number: 2, '.', ' '}%</div>
+            <div class="h6 mb-0">{$tests['stats']['negative']['abs']|number: 0, '.', ' '} testů</div>
+        </div>
+    </div>
+</div>

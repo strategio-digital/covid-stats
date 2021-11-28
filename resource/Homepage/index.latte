@@ -4,7 +4,7 @@
     <section class="bg-white py-3 py-lg-5">
         <div class="container">
             <h2 class="mb-4">Jakou mám šanci, že zemřu, když se nakazím nebo budu hospitalizován?</h2>
-            {include table/death-prediction.latte}
+            {include prediction/die-prediction.latte}
 
             <blockquote class="blockquote text-secondary">
                 <em>
@@ -19,7 +19,7 @@
             </blockquote>
 
             <div class="collapse" id="deathData">
-                {include table/death-data.latte}
+                {include table/died-data.latte}
             </div>
 
             <blockquote class="blockquote text-secondary">
@@ -60,66 +60,14 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="bg-success bg-opacity-75 text-white p-4 mt-4 mt-lg-0">
-                                <div class="h6 mt-3">Otestovaní</div>
-                                <div class="h1">X</div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="bg-danger bg-opacity-75 text-white p-4 mt-4">
-                                <div class="h6 mt-3">Pozitivní (nakažení)</div>
-                                <div class="h1">X%</div>
-                                <div class="h6 mb-0">
-                                    {var $stats = $positives['stats']}
-                                    {$stats['all']['abs']|number: 0, '.', ' '} rizikových lidí
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="bg-success bg-opacity-75 text-white p-4 mt-4">
-                                <div class="h6 mt-3">Negativní</div>
-                                <div class="h1">X%</div>
-                                <div class="h6 mb-0">X nerizikových lidí</div>
-                            </div>
-                        </div>
-                    </div>
-                    {include table/positives-mini.latte}
-                    {include table/hospitalized-mini.latte}
-                    {include table/deaths-mini.latte}
+                    {include boxes/tested-boxes.latte}
+                    {include boxes/infected-boxes.latte}
+                    {include boxes/hospitalized-boxes.latte}
+                    {include boxes/died-boxes.latte}
                 </div>
             </div>
         </div>
     </section>
-
-    {*<section class="bg-white py-3 py-lg-5">
-        <div class="container">
-            <h2 class="mb-4">Jaký je počet hospitalizací dle očkovanosti?</h2>
-            {include table/hospitalized.latte}
-            <blockquote class="blockquote text-secondary">
-                <em>*
-                    <a class="link-danger" data-bs-toggle="collapse" href="#hospitalizedData" role="button" aria-expanded="false" aria-controls="hospitalizedData">
-                        Zobrazit detailní hospitalizace.
-                    </a>
-                </em>
-            </blockquote>
-
-            <div class="collapse" id="hospitalizedData">
-                {include table/hospitalized-data.latte}
-            </div>
-        </div>
-    </section>*}
-
-    {*<section class="bg-white py-3 py-lg-5">
-        <div class="container">
-            <h2 class="mb-4">Jaký je počet úmrtí dle očkovanosti?</h2>
-            {include table/deaths.latte}
-            <blockquote class="blockquote text-secondary">
-                <em>* detailní úmrtnost viz odkaz výše.</em>
-            </blockquote>
-        </div>
-    </section>*}
 
     <section class="bg-white py-3 py-lg-5">
         <div class="container pb-4 pb-lg-5">

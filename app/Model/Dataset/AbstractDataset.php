@@ -17,6 +17,12 @@ abstract class AbstractDataset
         for ($i = 2; $i <= $pages; $i++) {
             $data = array_merge($data, $this->mzcrApi->$methodName($i, $params)['hydra:member']);
         }
+
+        usort($data, function (array $a, array $b) {
+            $date1 = new \DateTime($a['datum']);
+            $date2 = new \DateTime($b['datum']);
+            return $date1->getTimestamp() <=> $date2->getTimestamp();
+        });
     
         $end = count($data);
         $maxResults = $maxResults > $end ? $end : $maxResults;

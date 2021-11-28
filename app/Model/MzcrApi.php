@@ -43,6 +43,11 @@ class MzcrApi
         return $this->get("umrti?page={$page}&{$query}");
     }
     
+    public function testyPcrAntigenni(int $page, array $params = []) : array
+    {
+        return $this->get("testy-pcr-antigenni?page={$page}");
+    }
+    
     protected function get(string $url): array
     {
         $date = date('Y-m-d-H');
