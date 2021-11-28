@@ -31,7 +31,7 @@ class Api
             return $a['vek'] <=> $b['vek'];
         });
         
-        $html = $this->latte->renderToString(__DIR__ . '/../../resource/Api/deathDetailData.latte', ['data' => $data]);
+        $html = $this->latte->renderToString(__DIR__ . '/../../resource/Api/death-detail-data.latte', ['data' => $data]);
         
         $response = new JsonResponse($html);
         $response->send();

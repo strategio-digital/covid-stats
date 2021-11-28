@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Model\Aggregation\DeathChancesAggregation;
+use App\Model\Aggregation\DeathPrediction;
 use App\Model\Dataset\DeathsDataset;
 use App\Model\Dataset\HospitalizedDataset;
+use App\Model\Dataset\PositivesDataset;
 use App\Model\Dataset\SummaryDataset;
 use App\Model\MzcrApi;
 use Latte\Engine;
@@ -18,9 +19,11 @@ class Homepage
     
     protected HospitalizedDataset $hospitalizedDataset;
     
+    protected PositivesDataset $positivesDataset;
+    
     protected SummaryDataset $summaryDataset;
     
-    protected DeathChancesAggregation $deathChancesAggregation;
+    protected DeathPrediction $deathPrediction;
     
     public function __construct(protected Request $request, protected Engine $latte)
     {
@@ -28,23 +31,26 @@ class Homepage
         
         $this->deathsDataset = new DeathsDataset($this->mzcrApi);
         $this->hospitalizedDataset = new HospitalizedDataset($this->mzcrApi);
+        $this->positivesDataset = new PositivesDataset($this->mzcrApi);
         $this->summaryDataset = new SummaryDataset($this->mzcrApi);
         
-        $this->deathChancesAggregation = new DeathChancesAggregation();
+        $this->deathPrediction = new DeathPrediction();
     }
     
     public function index(): void
     {
-        $days = (int) $this->request->getQuery('days') ?: 365.25 * 4;
+        $days = (int)$this->request->getQuery('days') ?: 365.25 * 4;
         
         // Datasets
         $deaths = $this->deathsDataset->fetch($days);
         $hospitalized = $this->hospitalizedDataset->fetch($days);
+        $positives = $this->positivesDataset->fetch($days);
         $summary = $this->summaryDataset->fetch();
-    
-        // Aggregations
-        $deathChances = $this->deathChancesAggregation->getStats($hospitalized, $deaths);
-    
+        
+        // Predictions
+        $predictionForPositives = $this->deathPrediction->getStats($deaths, $positives->getStats());
+        $predictionForHospitalized = $this->deathPrediction->getStats($deaths, $hospitalized->getStats());
+        
         // Dates
         $endDate = $deaths->getData()[$deaths->countDays()]['datum'];
         $endDate = new \DateTime($endDate);
@@ -60,13 +66,19 @@ class Homepage
             ],
             'hospitalized' => [
                 'data' => $hospitalized->getData(),
-                'stats' => $hospitalized->getStats(),
+                'stats' => $hospitalized->getStats()
+            ],
+            'positives' => [
+                'data' => $positives->getData(),
+                'stats' => $positives->getStats()
             ],
             'summary' => [
-                'data' => $summary->getData(),
+                'data' => $summary->getData()
             ],
-            
-            'deathChances' => $deathChances,
+            'deathPrediction' => [
+                'forPositives' => $predictionForPositives,
+                'forHospitalized' => $predictionForHospitalized
+            ]
         ]);
     }
 }

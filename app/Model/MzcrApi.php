@@ -22,16 +22,6 @@ class MzcrApi
         ]);
     }
     
-    public function ockovaniZakladniPrehled(int $page, array $params = []): array
-    {
-        return $this->get("ockovani-zakladni-prehled?page={$page}");
-    }
-    
-    public function ockovani(int $page, array $params = []): array
-    {
-        return $this->get("ockovani?page={$page}");
-    }
-    
     public function ockovaniUmrti(int $page, array $params = []): array
     {
         return $this->get("ockovani-umrti?page={$page}");

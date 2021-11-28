@@ -40,19 +40,19 @@ class HospitalizedDataset extends AbstractDataset
             return $prev + $hospitalized['hospitalizovani_celkem'];
         }, 0);
         
-        $sumnotVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
+        $sumNotVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
             return $prev + $hospitalized['hospitalizovani_bez_ockovani'];
         }, 0);
         
-        $sumfirstVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
+        $sumFirstVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
             return $prev + $hospitalized['hospitalizovani_nedokoncene_ockovani'];
         }, 0);
         
-        $sumsecondVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
+        $sumSecondVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
             return $prev + $hospitalized['hospitalizovani_dokoncene_ockovani'];
         }, 0);
         
-        $sumthirdVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
+        $sumThirdVax = array_reduce($this->data, function (int $prev, array $hospitalized) {
             return $prev + $hospitalized['hospitalizovani_posilujici_davka'];
         }, 0);
         
@@ -62,20 +62,20 @@ class HospitalizedDataset extends AbstractDataset
                 'abs' => $sumDeaths,
             ],
             'notVax' => [
-                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumnotVax,
-                'abs' => $sumnotVax
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumNotVax,
+                'abs' => $sumNotVax
             ],
             'firstVax' => [
-                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumfirstVax,
-                'abs' => $sumfirstVax
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumFirstVax,
+                'abs' => $sumFirstVax
             ],
             'secondVax' => [
-                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumsecondVax,
-                'abs' => $sumsecondVax
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumSecondVax,
+                'abs' => $sumSecondVax
             ],
             'thirdVax' => [
-                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumthirdVax,
-                'abs' => $sumthirdVax
+                'percent' => $sumDeaths === 0 ? 0 : (100 / $sumDeaths) * $sumThirdVax,
+                'abs' => $sumThirdVax
             ]
         ];
     }

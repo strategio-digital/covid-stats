@@ -9,7 +9,7 @@ namespace App\Model\Dataset;
 
 use App\Model\MzcrApi;
 
-class DeathsDataset extends AbstractDataset
+class PositivesDataset extends AbstractDataset
 {
     protected array $data = [];
     
@@ -17,10 +17,10 @@ class DeathsDataset extends AbstractDataset
     {
     }
     
-    public function fetch(int $days): DeathsDataset
+    public function fetch(int $days): PositivesDataset
     {
-        $response = $this->mzcrApi->ockovaniUmrti(1);
-        $this->data = $this->fetchAll($response, 'ockovaniUmrti', $days);
+        $response = $this->mzcrApi->ockovaniPozitivni(1);
+        $this->data = $this->fetchAll($response, 'ockovaniPozitivni', $days);
         
         return $this;
     }
@@ -30,33 +30,28 @@ class DeathsDataset extends AbstractDataset
         return $this->data;
     }
     
-    public function countDays() : int
-    {
-        return count($this->data) - 1;
-    }
-    
     public function getStats(): array
     {
         $sumDeaths = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_celkem'];
+            return $prev + $death['pozitivni_celkem'];
         }, 0);
-        
+    
         $sumNotVax = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_bez_ockovani'];
+            return $prev + $death['pozitivni_bez_ockovani'];
         }, 0);
-        
+    
         $sumFirstVax = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_nedokoncene_ockovani'];
+            return $prev + $death['pozitivni_nedokoncene_ockovani'];
         }, 0);
-        
+    
         $sumSecondVax = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_dokoncene_ockovani'];
+            return $prev + $death['pozitivni_dokoncene_ockovani'];
         }, 0);
-        
+    
         $sumThirdVax = array_reduce($this->data, function (int $prev, array $death) {
-            return $prev + $death['zemreli_posilujici_davka'];
+            return $prev + $death['pozitivni_posilujici_davka'];
         }, 0);
-        
+    
         return [
             'all' => [
                 'percent' => 100,

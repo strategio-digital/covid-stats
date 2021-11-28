@@ -1,0 +1,84 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType array $deathPrediction}
+{block deathPrediction}
+    {var $p = $deathPrediction['forPositives']}
+    {var $h = $deathPrediction['forHospitalized']}
+    <div class="row">
+        <div class="col-sm-6 col-lg-3">
+            <div class="shadow-sm">
+                <div class="bg-secondary">
+                    <div class="h5 p-4 mb-0">&nbsp;</div>
+                </div>
+                <div class="bg-secondary text-white p-4 mb-4">
+                    <div class="h6 mt-3">Zemřelo</div>
+                    <div class="h2 mt-4">{$p['all']['percent']|number: 2} %</div>
+                    <div class="">
+                        Pozitivních
+                    </div>
+                    <div class="h2 mt-5">{$h['all']['percent']|number: 2} %</div>
+                    <div class="">
+                        Hospitalizovaných
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="shadow-sm">
+                <div class="bg-danger bg-opacity-25">
+                    <div class="h5 p-4 mb-0">Neočkovaní</div>
+                </div>
+                <div class="bg-secondary text-white p-4 mb-4">
+                    <div class="h6 mt-3">Tvá šance na úmrtí</div>
+                    <div class="h2 mt-4">{$p['notVax']['percent']|number: 2} %</div>
+                    <div class="">
+                        každý {$p['notVax']['repetitionBy100']|number: 1, '.', ''} pozitivní zemře
+                    </div>
+                    <div class="h2 mt-5">{$h['notVax']['percent']|number: 2} %</div>
+                    <div class="">
+                        každý {$h['notVax']['repetitionBy100']|number: 1, '.', ''} hospitalizovaný zemře
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="shadow-sm">
+                <div class="bg-danger bg-opacity-25">
+                    <div class="h5 p-4 mb-0">Očkovaní (2. dávka)</div>
+                </div>
+                <div class="bg-secondary text-white p-4 mb-4">
+                    <div class="h6 mt-3">Tvá šance na úmrtí</div>
+                    <div class="h2 mt-4">{$p['secondVax']['percent']|number: 2} %</div>
+                    <div class="">
+                        každý {$p['secondVax']['repetitionBy100']|number: 1, '.', ''} pozitivní zemře
+                    </div>
+                    <div class="h2 mt-5">{$h['secondVax']['percent']|number: 2} %</div>
+                    <div class="">
+                        každý {$h['secondVax']['repetitionBy100']|number: 1, '.', ''} hospitalizovaný zemře
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="shadow-sm">
+                <div class="bg-danger bg-opacity-25">
+                    <div class="h5 p-4 mb-0">Očkovaní (3. dávka)</div>
+                </div>
+                <div class="bg-secondary text-white p-4 mb-4">
+                    <div class="h6 mt-3">Tvá šance na úmrtí</div>
+                    <div class="h2 mt-4">{$p['thirdVax']['percent']|number: 2} %</div>
+                    <div class="">
+                        každý {$p['thirdVax']['repetitionBy100']|number: 1, '.', ''} pozitivní zemře
+                    </div>
+                    <div class="h2 mt-5">{$h['thirdVax']['percent']|number: 2} %</div>
+                    <div class="">
+                        každý {$h['thirdVax']['repetitionBy100']|number: 1, '.', ''} hospitalizovaný zemře
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

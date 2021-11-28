@@ -8,16 +8,13 @@ declare(strict_types=1);
 namespace App\Model\Aggregation;
 
 use App\Model\Dataset\DeathsDataset;
-use App\Model\Dataset\HospitalizedDataset;
 
-class DeathChancesAggregation
+class DeathPrediction
 {
-    public function getStats(HospitalizedDataset $hospitalizedDataset, DeathsDataset $deathsDataset): array
+    public function getStats(DeathsDataset $deathsDataset, array $targetStats): array
     {
-        $h = $hospitalizedDataset->getStats();
         $d = $deathsDataset->getStats();
-        
-        $sumHospitalize = $h['all']['abs'];
+        $sumHospitalize = $targetStats['all']['abs'];
         
         $notVaxPercent = (($d['notVax']['abs'] + $d['firstVax']['abs']) / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
         $secondVaxPercent = ($d['secondVax']['abs'] / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
@@ -26,9 +23,8 @@ class DeathChancesAggregation
         $notVaxRepetition = $notVaxPercent == 0 ? 0 : 100 / $notVaxPercent;
         $secondVaxRepetition = $secondVaxPercent == 0 ? 0 : 100 / $secondVaxPercent;
         $thirdVaxRepetition = $thirdVaxPercent == 0 ? 0 : 100 / $thirdVaxPercent;
-    
+        
         $avgPercent = (($d['all']['abs']) / ($sumHospitalize == 0 ? 1 : $sumHospitalize)) * 100;
-        //$avgPercent = ($notVaxPercent + $secondVaxPercent + $thirdVaxPercent) / 3;
         $avgRepetition = $avgPercent == 0 ? 0 : 100 / $avgPercent;
         
         return [

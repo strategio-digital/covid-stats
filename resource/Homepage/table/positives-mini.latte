@@ -1,0 +1,42 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType array $positives}
+
+{block positives-mini}
+    {var $stats = $positives['stats']}
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="bg-light p-4 mt-4">
+                <div class="h6 mt-3 fw-bold">Neočkovaní</div>
+                <div class="h6 mt-4">Pozitivně otestováno</div>
+                <div class="h2">
+                    {sprintf('%.2f', $stats['notVax']['percent'] + $stats['firstVax']['percent'])} %
+                </div>
+                <div class="mt-4 text-end">{($stats['notVax']['abs'] + $stats['firstVax']['abs'])|number: 0, '.', ' '} lidí</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="bg-light p-4 mt-4">
+                <div class="h6 mt-3 fw-bold">Očkovaní (2. dávka)</div>
+                <div class="h6 mt-4">Pozitivně otestováno</div>
+                <div class="h2">
+                    {sprintf('%.2f', $stats['secondVax']['percent'])} %
+                </div>
+                <div class="mt-4 text-end">{$stats['secondVax']['abs']|number: 0, '.', ' '} lidí</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="bg-light p-4 mt-4">
+                <div class="h6 mt-3 fw-bold">Očkovaní (3. dávka)</div>
+                <div class="h6 mt-4">Pozitivně otestováno</div>
+                <div class="h2">
+                    {sprintf('%.2f', $stats['thirdVax']['percent'])} %
+                </div>
+                <div class="mt-4 text-end">{$stats['thirdVax']['abs']|number: 0, '.', ' '} lidí</div>
+            </div>
+        </div>
+    </div>
+{/block}
