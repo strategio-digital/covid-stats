@@ -41,13 +41,14 @@ class Homepage
         $deaths = $this->deathsDataset->fetch($days);
         $hospitalized = $this->hospitalizedDataset->fetch($days);
         $summary = $this->summaryDataset->fetch();
-        
+    
         // Aggregations
         $deathChances = $this->deathChancesAggregation->getStats($hospitalized, $deaths);
     
         // Dates
-        $endDate = new \DateTime();
-        $startDate = (new \DateTime('now'))->modify("-{$deaths->countDays()} days");
+        $endDate = $deaths->getData()[$deaths->countDays()]['datum'];
+        $endDate = new \DateTime($endDate);
+        $startDate = (clone $endDate)->modify("-{$deaths->countDays()} days");
         
         // Render
         $this->latte->render(__DIR__ . '/../../resource/Homepage/index.latte', [
