@@ -5,18 +5,21 @@
 
 {varType array $hospitalized}
 {block hospitalizedData}
+
+    <h2>Přehled hospitalizovaných po dnech</h2>
+
     {var $data = array_reverse($hospitalized['data'])}
     <div class="table-responsive">
         <table class="table table-bordered table-hover mb-0" style="white-space: nowrap">
             <thead>
-            <tr>
+            <tr class="small">
                 <th>Datum</th>
-                <th>Celkem hospitalizací</th>
                 <th>Neočkovaní</th>
-                <th><span class="text-danger fw-bold">Ne</span>očkovaní (1.dávka)</th>
-                <th>Celkem</th>
-                <th>Očkovaní 2. dávka</th>
-                <th>Očkovaní 3. dávka</th>
+                <th><span class="text-danger fw-bold">Ne</span>očkovaní <small>(1.dávka)</small></th>
+                <th>Součet</th>
+                <th>Očkovaní <small>(2. dávka)</small></th>
+                <th>Očkovaní <small>(3. dávka)</small></th>
+                <th>Součet</th>
                 <th>Celkem</th>
             </tr>
             </thead>
@@ -28,7 +31,6 @@
                         {var $date = new \Datetime($death['datum'])}
                         {php echo $date->format('j.n.Y')}
                     </td>
-                    <td class="bg-light fw-bold">{$death['hospitalizovani_celkem']}</td>
                     <td>
                         <div class="d-flex justify-content-between align-items-center">
                             {$death['hospitalizovani_bez_ockovani']}
@@ -67,6 +69,7 @@
                         </div>
                     </td>
                     <td class="bg-light">{$death['hospitalizovani_dokoncene_ockovani'] + $death['hospitalizovani_posilujici_davka']}</td>
+                    <td class="bg-secondary bg-opacity-10 fw-bold">{$death['hospitalizovani_celkem']}</td>
                 </tr>
             {/foreach}
             </tbody>
