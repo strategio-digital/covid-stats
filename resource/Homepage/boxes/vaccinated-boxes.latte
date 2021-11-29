@@ -21,7 +21,9 @@
     <div class="h1 fw-bold">{$vaccinated['stats']['firstVax']['percent']|number: 2} %</div>
     <div class="mb-4 mb-lg-5">{$vaccinated['stats']['firstVax']['abs']|number: 0, '.', ' '} lidí</div>
 
-    <div class="mb-2">Neočkovaní</div>
-    <div class="h1 fw-bold">{$vaccinated['stats']['nonVax']['percent']|number: 2} %</div>
-    <div>{$vaccinated['stats']['nonVax']['abs']|number: 0, '.', ' '} lidí</div>
+    <div class="text-white-50">
+        <div class="mb-2 fw-bold">Neočkovaní</div>
+        <div class="h1 fw-bold">{$vaccinated['stats']['nonVax']['percent']|number: 2} %</div>
+        <div>{$vaccinated['stats']['nonVax']['abs']|number: 0, '.', ' '} lidí</div>
+    </div>
 </div>
