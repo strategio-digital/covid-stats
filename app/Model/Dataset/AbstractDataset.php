@@ -18,7 +18,7 @@ abstract class AbstractDataset
     
     protected function __construct()
     {
-        $path = __DIR__ . '/../../../temp/mzcr-api/pagination';
+        $path = __DIR__ . '/../../../temp/mzcr-api';
         
         if (!file_exists($path)) {
             FileSystem::createDir($path);
@@ -32,7 +32,7 @@ abstract class AbstractDataset
         $pages = (int)ceil($response['hydra:totalItems'] / 100);
         $data = $response['hydra:member'];
         
-        $kvsName = Strings::webalize($methodName . http_build_query($params));
+        $kvsName = 'pagination_' . Strings::webalize($methodName . http_build_query($params));
         $requestStore = $this->storage->read($kvsName) ?: ['lastPage' => 0];
         $lastSaved = $requestStore['lastPage'];
         

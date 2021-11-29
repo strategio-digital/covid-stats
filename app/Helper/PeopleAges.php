@@ -118,7 +118,7 @@ class PeopleAges
         return $this->data[$age];
     }
     
-    public function countByGroup(array $ages) : int
+    public function countPeopleByGroup(array $ages) : int
     {
         $count = 0;
         
@@ -127,5 +127,10 @@ class PeopleAges
         }
         
         return $count;
+    }
+    
+    public function countAllPeople() : int
+    {
+        return array_sum($this->data);
     }
 }

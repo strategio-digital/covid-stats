@@ -42,22 +42,10 @@
 
     <section class="bg-white py-3 py-lg-5">
         <div class="container">
-            <h2 class="mb-4">Do jaké situace se mohu dostat a jaké mám šance?</h2>
+            <h2 class="mb-4">Jak vypadají podrobná data?</h2>
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="bg-success bg-opacity-75 text-white p-5 h-100">
-                        <div class="h6 mt-3 mb-3">Proočkovanost populace v ČR</div>
-                        <div class="display-2 fw-bold">
-                            X%
-                        </div>
-                        <div class="h6 mt-3">X lidí</div>
-
-                        <div class="mt-4">
-                            <div>Pouze první dávkou:</div>
-                            <div>Pouze druhou dávkou:</div>
-                            <div>Pouze třetí dávkou:</div>
-                        </div>
-                    </div>
+                    {include boxes/vaccinated-boxes.latte}
                 </div>
                 <div class="col-lg-8">
                     {include boxes/tested-boxes.latte}

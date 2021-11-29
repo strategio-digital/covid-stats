@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Model\Aggregation\DeathPrediction;
 use App\Model\Aggregation\TestAggregation;
+use App\Model\Aggregation\VaccinationAggregation;
 use App\Model\Dataset\DeathsDataset;
 use App\Model\Dataset\HospitalizedDataset;
 use App\Model\Dataset\PositivesDataset;
 use App\Model\Dataset\SummaryDataset;
 use App\Model\Dataset\TestDataset;
+use App\Model\Dataset\VaccinatedDataset;
 use App\Model\MzcrApi;
 use Latte\Engine;
 use Nette\Http\Request;
@@ -23,6 +25,8 @@ class Homepage
     
     protected PositivesDataset $positivesDataset;
     
+    protected VaccinatedDataset $vaccinatedDataset;
+    
     protected TestDataset $testDataset;
     
     protected SummaryDataset $summaryDataset;
@@ -31,6 +35,8 @@ class Homepage
     
     protected TestAggregation $testAggregation;
     
+    protected VaccinationAggregation $vaccinationAggregation;
+    
     public function __construct(protected Request $request, protected Engine $latte)
     {
         $this->mzcrApi = new MzcrApi();
@@ -38,11 +44,13 @@ class Homepage
         $this->deathsDataset = new DeathsDataset($this->mzcrApi);
         $this->hospitalizedDataset = new HospitalizedDataset($this->mzcrApi);
         $this->positivesDataset = new PositivesDataset($this->mzcrApi);
+        $this->vaccinatedDataset = new VaccinatedDataset($this->mzcrApi);
         $this->testDataset = new TestDataset($this->mzcrApi);
         $this->summaryDataset = new SummaryDataset($this->mzcrApi);
         
         $this->deathPrediction = new DeathPrediction();
         $this->testAggregation = new TestAggregation();
+        $this->vaccinationAggregation = new VaccinationAggregation();
     }
     
     public function index(): void
@@ -61,11 +69,14 @@ class Homepage
         $positives = $this->positivesDataset->fetch($days);
         $tests = $this->testDataset->fetch($days - 1);
         $summary = $this->summaryDataset->fetch();
+        $vaccinated = $this->vaccinatedDataset->fetch();
         
         // Aggregations
         $predictionForPositives = $this->deathPrediction->getStats($deaths, $positives->getStats());
         $predictionForHospitalized = $this->deathPrediction->getStats($deaths, $hospitalized->getStats());
+        
         $testStats = $this->testAggregation->getStats($tests, $positives->getStats());
+        $vaccinationStats = $this->vaccinationAggregation->getStats($vaccinated);
         
         // Render
         $this->latte->render(__DIR__ . '/../../resource/Homepage/index.latte', [
@@ -85,6 +96,9 @@ class Homepage
             ],
             'tests' => [
                 'stats' => $testStats
+            ],
+            'vaccinated' => [
+                'stats' => $vaccinationStats
             ],
             'summary' => [
                 'data' => $summary->getData()

@@ -12,7 +12,7 @@ class MzcrApi
 {
     protected Client $client;
     
-    protected Cache $cache;
+    protected FileStorage $storage;
     
     public function __construct()
     {
@@ -29,41 +29,46 @@ class MzcrApi
             FileSystem::createDir($path);
         }
         
-        $storage = new FileStorage($path);
-        $this->cache = new Cache($storage, 'data');
+        $this->storage = new FileStorage($path);
     }
     
-    public function ockovaniUmrti(\DateTime $expiration, int $page, array $params = []): array
+    public function ockovaniDemografie(\DateTime $expiration, int $page, array $params = []) : array
     {
-        return $this->get($expiration, "ockovani-umrti?page={$page}");
+        return $this->get(__FUNCTION__, $expiration, "ockovani-demografie?page={$page}");
     }
     
     public function ockovaniPozitivni(\DateTime $expiration, int $page, array $params = []): array
     {
-        return $this->get($expiration, "ockovani-pozitivni?page={$page}");
+        return $this->get(__FUNCTION__, $expiration, "ockovani-pozitivni?page={$page}");
     }
     
     public function ockovaniHospitalizace(\DateTime $expiration, int $page, array $params = []): array
     {
-        return $this->get($expiration, "ockovani-hospitalizace?page={$page}");
+        return $this->get(__FUNCTION__, $expiration, "ockovani-hospitalizace?page={$page}");
+    }
+    
+    public function ockovaniUmrti(\DateTime $expiration, int $page, array $params = []): array
+    {
+        return $this->get(__FUNCTION__, $expiration, "ockovani-umrti?page={$page}");
     }
     
     public function umrti(\DateTime $expiration, int $page, array $params = []): array
     {
         $query = http_build_query($params);
-        return $this->get($expiration, "umrti?page={$page}&{$query}");
+        return $this->get(__FUNCTION__, $expiration, "umrti?page={$page}&{$query}");
     }
     
     public function testyPcrAntigenni(\DateTime $expiration, int $page, array $params = []): array
     {
-        return $this->get($expiration, "testy-pcr-antigenni?page={$page}");
+        return $this->get(__FUNCTION__, $expiration, "testy-pcr-antigenni?page={$page}");
     }
     
-    protected function get(\DateTime $expiration, string $url): array
+    protected function get(string $namespace, \DateTime $expiration, string $url): array
     {
-        $fileName = Strings::webalize($url) . '.json';
+        $key = Strings::webalize($url);
+        $cache = new Cache($this->storage, $namespace);
         
-        return $this->cache->load($fileName, function (array|null &$dependencies) use ($expiration, $url) {
+        return $cache->load($key, function (array|null &$dependencies) use ($expiration, $url) {
             $dependencies[Cache::EXPIRE] = $expiration;
             
             $response = $this->client->get($url . '&apiToken=' . $_ENV['MZCR_API_TOKEN']);
