@@ -15,12 +15,15 @@ class TestDataset extends AbstractDataset
     
     public function __construct(protected MzcrApi $mzcrApi)
     {
+        parent::__construct();
     }
     
     public function fetch(int $days): TestDataset
     {
-        $response = $this->mzcrApi->testyPcrAntigenni(1);
-        $this->data = $this->fetchAll($response, 'testyPcrAntigenni', $days);
+        $expiration = (new \DateTime())->modify('+ 1hour');
+        
+        $response = $this->mzcrApi->testyPcrAntigenni($expiration, 1);
+        $this->data = $this->fetchAll($response, 'testyPcrAntigenni', $expiration, 5, $days);
         
         return $this;
     }

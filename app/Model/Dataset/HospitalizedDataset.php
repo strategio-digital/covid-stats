@@ -15,12 +15,16 @@ class HospitalizedDataset extends AbstractDataset
     
     public function __construct(protected MzcrApi $mzcrApi)
     {
+        parent::__construct();
     }
     
     public function fetch(int $days): HospitalizedDataset
     {
-        $response = $this->mzcrApi->ockovaniHospitalizace(1);
-        $this->data = $this->fetchAll($response, 'ockovaniHospitalizace', $days);
+        $expiration = (new \DateTime())->modify('+ 1hour');
+        
+        $response = $this->mzcrApi->ockovaniHospitalizace($expiration, 1);
+        $this->data = $this->fetchAll($response, 'ockovaniHospitalizace', $expiration, 5, $days);
+        
         return $this;
     }
     

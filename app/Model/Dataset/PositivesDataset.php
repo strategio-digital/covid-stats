@@ -15,12 +15,15 @@ class PositivesDataset extends AbstractDataset
     
     public function __construct(protected MzcrApi $mzcrApi)
     {
+        parent::__construct();
     }
     
     public function fetch(int $days): PositivesDataset
     {
-        $response = $this->mzcrApi->ockovaniPozitivni(1);
-        $this->data = $this->fetchAll($response, 'ockovaniPozitivni', $days);
+        $expiration = (new \DateTime())->modify('+ 1hour');
+        
+        $response = $this->mzcrApi->ockovaniPozitivni($expiration, 1);
+        $this->data = $this->fetchAll($response, 'ockovaniPozitivni', $expiration, 5, $days);
         
         return $this;
     }

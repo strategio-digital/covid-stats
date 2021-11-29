@@ -15,6 +15,7 @@ class DeathDetailDataset extends AbstractDataset
     
     public function __construct(protected MzcrApi $mzcrApi)
     {
+        parent::__construct();
     }
     
     public function fetch(string $date): DeathDetailDataset
@@ -23,9 +24,11 @@ class DeathDetailDataset extends AbstractDataset
             'datum[before]' => $date,
             'datum[after]' => $date,
         ];
+    
+        $expiration = (new \DateTime())->modify('+ 1hour');
         
-        $response = $this->mzcrApi->umrti(1, $params);
-        $this->data = $this->fetchAll($response, 'umrti', 10000, $params);
+        $response = $this->mzcrApi->umrti($expiration, 1, $params);
+        $this->data = $this->fetchAll($response, 'umrti',  $expiration, 5, $response['hydra:totalItems'], $params);
         
         return $this;
     }

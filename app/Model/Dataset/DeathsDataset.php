@@ -15,12 +15,15 @@ class DeathsDataset extends AbstractDataset
     
     public function __construct(protected MzcrApi $mzcrApi)
     {
+        parent::__construct();
     }
     
     public function fetch(int $days): DeathsDataset
     {
-        $response = $this->mzcrApi->ockovaniUmrti(1);
-        $this->data = $this->fetchAll($response, 'ockovaniUmrti', $days);
+        $expiration = (new \DateTime())->modify('+ 1hour');
+        
+        $response = $this->mzcrApi->ockovaniUmrti($expiration, 1);
+        $this->data = $this->fetchAll($response, 'ockovaniUmrti', $expiration, 5, $days);
         
         return $this;
     }

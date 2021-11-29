@@ -15,14 +15,14 @@
         }
     ],
     "require": {
-        "tracy/tracy": "^2.8",
-        "symfony/dotenv": "^5.3",
-        "latte/latte": "^2.10",
-        "guzzlehttp/guzzle": "^7.4",
         "doctrine/collections": "^1.6",
-        "nette/utils": "^3.2",
-        "nette/safe-stream": "^2.4",
+        "guzzlehttp/guzzle": "^7.4",
+        "latte/latte": "^2.10",
+        "nette/caching": "^3.1",
         "nette/http": "^3.1",
-        "symfony/http-foundation": "^5.3"
+        "nette/utils": "^3.2",
+        "symfony/dotenv": "^5.3",
+        "symfony/http-foundation": "^5.3",
+        "tracy/tracy": "^2.8"
     }
 }

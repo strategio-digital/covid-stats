@@ -3,14 +3,16 @@
 namespace App\Model;
 
 use GuzzleHttp\Client;
+use Nette\Caching\Cache;
+use Nette\Caching\Storages\FileStorage;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 
 class MzcrApi
 {
-    const CACHE_PATH = __DIR__ . '/../../temp/mzcr-api';
-    
     protected Client $client;
+    
+    protected Cache $cache;
     
     public function __construct()
     {
@@ -20,52 +22,54 @@ class MzcrApi
                 'accept' => 'application/ld+json'
             ]
         ]);
-    }
-    
-    public function ockovaniUmrti(int $page, array $params = []): array
-    {
-        return $this->get("ockovani-umrti?page={$page}");
-    }
-    
-    public function ockovaniPozitivni(int $page, array $params = []): array
-    {
-        return $this->get("ockovani-pozitivni?page={$page}");
-    }
-    
-    public function ockovaniHospitalizace(int $page, array $params = []): array
-    {
-        return $this->get("ockovani-hospitalizace?page={$page}");
-    }
-    
-    public function umrti(int $page, array $params = []): array
-    {
-        $query = http_build_query($params);
-        return $this->get("umrti?page={$page}&{$query}");
-    }
-    
-    public function testyPcrAntigenni(int $page, array $params = []) : array
-    {
-        return $this->get("testy-pcr-antigenni?page={$page}");
-    }
-    
-    protected function get(string $url): array
-    {
-        $date = date('Y-m-d-H');
-        $path = self::CACHE_PATH . '/' . $date . '/';
+        
+        $path = __DIR__ . '/../../temp/mzcr-api';
+        
         if (!file_exists($path)) {
             FileSystem::createDir($path);
         }
         
+        $storage = new FileStorage($path);
+        $this->cache = new Cache($storage, 'data');
+    }
+    
+    public function ockovaniUmrti(\DateTime $expiration, int $page, array $params = []): array
+    {
+        return $this->get($expiration, "ockovani-umrti?page={$page}");
+    }
+    
+    public function ockovaniPozitivni(\DateTime $expiration, int $page, array $params = []): array
+    {
+        return $this->get($expiration, "ockovani-pozitivni?page={$page}");
+    }
+    
+    public function ockovaniHospitalizace(\DateTime $expiration, int $page, array $params = []): array
+    {
+        return $this->get($expiration, "ockovani-hospitalizace?page={$page}");
+    }
+    
+    public function umrti(\DateTime $expiration, int $page, array $params = []): array
+    {
+        $query = http_build_query($params);
+        return $this->get($expiration, "umrti?page={$page}&{$query}");
+    }
+    
+    public function testyPcrAntigenni(\DateTime $expiration, int $page, array $params = []): array
+    {
+        return $this->get($expiration, "testy-pcr-antigenni?page={$page}");
+    }
+    
+    protected function get(\DateTime $expiration, string $url): array
+    {
         $fileName = Strings::webalize($url) . '.json';
-        $filePath = $path . $fileName;
         
-        if (!file_exists($filePath)) {
+        return $this->cache->load($fileName, function (array|null &$dependencies) use ($expiration, $url) {
+            $dependencies[Cache::EXPIRE] = $expiration;
+            
             $response = $this->client->get($url . '&apiToken=' . $_ENV['MZCR_API_TOKEN']);
             $responseText = $response->getBody()->getContents();
-            file_put_contents('nette.safe://' . $filePath, $responseText);
-        }
-        
-        $json = FileSystem::read($filePath);
-        return json_decode($json, true);
+            
+            return json_decode($responseText, true);
+        });
     }
 }

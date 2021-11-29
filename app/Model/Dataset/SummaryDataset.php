@@ -16,6 +16,7 @@ class SummaryDataset extends AbstractDataset
     
     public function __construct(protected MzcrApi $mzcrApi)
     {
+        parent::__construct();
     }
     
     public function fetch(): SummaryDataset
