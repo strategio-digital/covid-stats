@@ -15,3 +15,10 @@ const ddMBody = document.getElementById('death-detail-modal-body');
             ddMBody.innerHTML = response.data;
             ddM.show();
         })));
+
+
+[].slice.call(document.querySelectorAll('[data-cta]')).map(element => {
+    element.addEventListener('click', () => {
+        gtag('event', element.dataset.cta);
+    })
+});
